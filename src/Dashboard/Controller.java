@@ -1,4 +1,5 @@
-package sample;
+package Dashboard;
 
 public class Controller {
+
 }
