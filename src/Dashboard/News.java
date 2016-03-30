@@ -10,35 +10,54 @@ import java.util.Date;
 public class News {
 
     private Date date;
-    private String headline;
-    private String story;
-    private Image image;
+    private String section;
+    private String title;
+    private String abstr;
+    private String url;
+    private Image img;
 
+    public News() {
+    }
+
+    public News(String section, String title, String abstr, String url) {
+        setSection(section);
+        setTitle(title);
+        setAbstr(abstr);
+        setUrl(url);
+    }
 
     //Setter Methods
-    public void setHeadline(String headline) {
-        this.headline = headline;
+    public void setSection(String section) {
+        this.section = section;
     }
 
-    public void setStory(String story) {
-        this.story = story;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setImage(Image image) {
-        this.image = image;
+    public void setAbstr(String abstr) {
+        this.abstr = abstr;
     }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
 
     //Getter Methods
-
-    public String getHeadline() {
-        return headline;
+    public String getSection() {
+        return section;
     }
 
-    public String getStory() {
-        return story;
+    public String getTitle() {
+        return title;
     }
 
-    public Image getImage() {
-        return image;
+    public String getAbstr() {
+        return abstr;
+    }
+
+    public String getUrl() {
+        return url;
     }
 }
