@@ -21,6 +21,8 @@ public class Weather {
     private String windDirection;
 
 
+    private Weather(){}
+
 
     //Setter Methods
     public void setDaysHigh(int daysHigh) {
@@ -95,5 +97,10 @@ public class Weather {
 
     public String getWindDirection() {
         return windDirection;
+    }
+
+
+    public static Weather createWeatherObject(){
+        return new Weather();
     }
 }

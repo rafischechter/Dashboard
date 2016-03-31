@@ -1,5 +1,7 @@
 package Dashboard;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import java.util.Date;
 
 /**
@@ -21,6 +23,7 @@ public class Stock {
     private int volume;
     private double adjClose;
 
+    private Stock(){}
 
 
     //Setter Methods
@@ -119,5 +122,11 @@ public class Stock {
 
     public double getAdjClose() {
         return adjClose;
+    }
+
+
+
+    public static Stock createStockObject(){
+        return new Stock();
     }
 }

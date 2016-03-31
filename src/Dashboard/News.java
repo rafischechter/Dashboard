@@ -16,10 +16,10 @@ public class News {
     private String url;
     private Image img;
 
-    public News() {
+    private News() {
     }
 
-    public News(String section, String title, String abstr, String url) {
+    private News(String section, String title, String abstr, String url) {
         setSection(section);
         setTitle(title);
         setAbstr(abstr);
@@ -60,4 +60,10 @@ public class News {
     public String getUrl() {
         return url;
     }
+
+
+    public static News createNewsObject(){
+        return new News();
+    }
+
 }
