@@ -13,6 +13,10 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("MainWindow.fxml"));
         primaryStage.setTitle("Dashboard");
         primaryStage.setScene(new Scene(root, 900, 600));
+
+        //News.createNewsObject();
+
+
         primaryStage.show();
     }
 
