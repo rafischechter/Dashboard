@@ -64,7 +64,7 @@ public class News {
         String title;
         String description;
 
-        String yql = "select * from feed where url='http://rss.news.yahoo.com/rss/topstories' limit 15";
+        String yql = "select * from feed where url='http://rss.news.yahoo.com/rss/topstories' limit 25";
 
         try{
             String http = "http://query.yahooapis.com/v1/public/yql?q=" + URLEncoder.encode(yql, "UTF-8") + "&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env";

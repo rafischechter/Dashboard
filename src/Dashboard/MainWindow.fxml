@@ -51,29 +51,42 @@
     </MenuBar>
     <SplitPane dividerPositions="0.2505567928730512, 0.5" focusTraversable="true" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="900.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0">
+        <AnchorPane>
           <children>
             <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Weather" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
               <font>
                 <Font size="18.0" fx:id="x1" />
               </font>
             </Label>
-                  <Pane prefHeight="100.0" prefWidth="200.0" />
                   <Pane layoutY="100.0" prefHeight="100.0" prefWidth="200.0" />
           </children>
         </AnchorPane>
-            <AnchorPane fx:id="panelNews" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="486.0">
-               <children>
-                  <Accordion fx:id="newsAccordion" prefHeight="499.0" prefWidth="486.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="50.0" />
-                  <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="News" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" AnchorPane.leftAnchor="14.0">
-                     <font>
-                        <Font size="18.0" fx:id="x11" />
-                     </font>
-                  </Label>
-                  <Button layoutX="92.0" layoutY="12.0" mnemonicParsing="false" onAction="#updateNews" text="Update" AnchorPane.rightAnchor="14.0" />
-               </children>
-            </AnchorPane>
-        <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0">
+            <BorderPane>
+               <center>
+                  <ScrollPane hbarPolicy="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="485.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+                     <content>
+                        <AnchorPane fx:id="panelNews" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="485.0">
+                           <children>
+                              <Accordion fx:id="newsAccordion" />
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </center>
+               <top>
+                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="485.0" BorderPane.alignment="CENTER">
+                     <children>
+                        <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="News" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+                           <font>
+                              <Font size="18.0" fx:id="x11" />
+                           </font>
+                        </Label>
+                        <Button layoutX="409.0" layoutY="12.0" mnemonicParsing="false" onAction="#updateNews" text="Update" />
+                     </children>
+                  </Pane>
+               </top>
+            </BorderPane>
+        <AnchorPane>
           <children>
             <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Stocks" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" AnchorPane.leftAnchor="14.0" />
           </children>
