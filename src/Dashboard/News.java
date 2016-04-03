@@ -95,6 +95,7 @@ public class News {
             e.printStackTrace();
         }
 
+
         return list;
     }
 

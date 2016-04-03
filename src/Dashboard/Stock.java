@@ -1,8 +1,22 @@
 package Dashboard;
 
 import com.sun.org.apache.bcel.internal.generic.NEW;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.concurrent.atomic.DoubleAccumulator;
+import java.util.stream.Collectors;
 
 /**
  * Created by rafi on 3/29/2016.
@@ -10,13 +24,13 @@ import java.util.Date;
 public class Stock {
 
     private Date date;
-    private String StockName;
+    private String name;
     private String symbl;
     private double currentPrice;
     private double prevClose;
     private double open;
-    private double high;
-    private double low;
+    private double daysHigh;
+    private double daysLow;
     private double close;
     private double bid;
     private double ask;
@@ -25,108 +39,79 @@ public class Stock {
 
     private Stock(){}
 
+    private Stock(String name, String symbol, double ask, double bid, double daysHigh, double daysLow){
+        this.name = name;
+        this.symbl = symbol;
+        this.ask = ask;
+        this.bid = bid;
+        this.daysHigh = daysHigh;
+        this.daysLow = daysLow;
+    }
+
 
     //Setter Methods
-    public void setStockName(String stockName) {
-        StockName = stockName;
-    }
-
-    public void setSymbl(String symbl) {
-        this.symbl = symbl;
-    }
-
-    public void setCurrentPrice(double currentPrice) {
-        this.currentPrice = currentPrice;
-    }
-
-    public void setPrevClose(double prevClose) {
-        this.prevClose = prevClose;
-    }
-
-    public void setOpen(double open) {
-        this.open = open;
-    }
-
-    public void setHigh(double high) {
-        this.high = high;
-    }
-
-    public void setLow(double low) {
-        this.low = low;
-    }
-
-    public void setClose(double close) {
-        this.close = close;
-    }
-
-    public void setBid(double bid) {
-        this.bid = bid;
-    }
-
-    public void setAsk(double ask) {
-        this.ask = ask;
-    }
-
-    public void setVolume(int volume) {
-        this.volume = volume;
-    }
-
-    public void setAdjClose(double adjClose) {
-        this.adjClose = adjClose;
-    }
 
     //Getter Methods
-    public String getStockName() {
-        return StockName;
+
+
+    public String getName() {
+        return name;
     }
 
     public String getSymbl() {
         return symbl;
     }
 
-    public double getCurrentPrice() {
-        return currentPrice;
-    }
+    public static List<Stock> createStockObject(){
+        List<Stock> list = new ArrayList<Stock>();
 
-    public double getPrevClose() {
-        return prevClose;
-    }
+        String name;
+        String symbl;
+        double ask;
+        double bid;
+        double daysHigh;
+        double daysLow;
 
-    public double getOpen() {
-        return open;
-    }
+        String yql = "SELECT * FROM yahoo.finance.quotes WHERE symbol in (\"msft\", \"aapl\", \"yhoo\")";
 
-    public double getHigh() {
-        return high;
-    }
+        try {
 
-    public double getLow() {
-        return low;
-    }
+            String http = "http://query.yahooapis.com/v1/public/yql?q=" + URLEncoder.encode(yql, "UTF-8") + "&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env";
 
-    public double getClose() {
-        return close;
-    }
+            URL url = new URL(http);
+            URLConnection con = url.openConnection();
+            InputStream in = con.getInputStream();
+            String result = new BufferedReader(new InputStreamReader(in)).lines().collect(Collectors.joining("\n"));
 
-    public double getBid() {
-        return bid;
-    }
+            JSONParser parser = new JSONParser();
 
-    public double getAsk() {
-        return ask;
-    }
+            JSONObject jsonObject = (JSONObject) parser.parse(result);
+            JSONObject query = (JSONObject) jsonObject.get("query");
+            JSONObject results = (JSONObject) query.get("results");
 
-    public int getVolume() {
-        return volume;
-    }
+            JSONArray items = (JSONArray) results.get("quote");
 
-    public double getAdjClose() {
-        return adjClose;
-    }
+            Iterator iterator = items.iterator();
+            while (iterator.hasNext()){
+                JSONObject quote = (JSONObject) iterator.next();
+                name = (String)quote.get("Name");
+                symbl = (String)quote.get("symbol");
+                ask = Double.parseDouble((String)quote.get("Ask"));
+                bid = Double.parseDouble((String)quote.get("Bid"));
+                daysHigh = Double.parseDouble((String)quote.get("DaysHigh"));
+                daysLow = Double.parseDouble((String)quote.get("DaysLow"));
+                list.add(new Stock(name, symbl, ask, bid, daysHigh, daysLow));
+                //System.out.printf("Name: %s\nSymbol: %s\nBid: %.2f\nAsk: %.2f\nDays High: %.2f\n" +
+                 //       "Days Low: %.2f\n", name, symbl, ask, bid, daysHigh, daysLow);
+            }
 
 
 
-    public static Stock createStockObject(){
-        return new Stock();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return list;
     }
 }
