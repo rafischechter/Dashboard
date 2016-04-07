@@ -9,20 +9,45 @@ import java.util.List;
 
 public class Controller {
 
+    public Controller() {
+    }
+
     @FXML
     private void initialize(){
         updateNews();
         updateStocks();
+        updateWeather();
     }
 
     private ArrayList<News> newsList;
     private List<Stock> stockList;
+    private List<Weather> WeatherList;
 
     @FXML
     private Accordion newsAccordion;
 
     @FXML
     private VBox stockPane;
+
+    @FXML
+    private VBox WeatherPane;
+
+    @FXML
+    protected void updateWeather(){
+
+        WeatherList = Weather.createWeatherObject();
+        if(WeatherPane.getChildren().size() > 0){
+            WeatherPane.getChildren().remove(0, WeatherList.size());
+        }
+
+        WeatherList.stream().forEach(weather -> {
+            VBox v = new VBox();
+            Label temp = new Label(weather.getCity() + " " + weather.getTemp() + "° F");
+            v.getChildren().addAll(temp);
+
+            WeatherPane.getChildren().add(v);
+        });
+    }
 
     @FXML
     protected void updateNews(){
@@ -65,6 +90,8 @@ public class Controller {
             stockPane.getChildren().add(v);
         });
     }
+
+
 
 
 }
