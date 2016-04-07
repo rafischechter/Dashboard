@@ -1,8 +1,11 @@
 package Dashboard;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.shape.Line;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -85,9 +88,19 @@ public class Controller {
 
         stockList.stream().forEach(stock -> {
             VBox v = new VBox();
-            Label name = new Label(stock.getName());
-            v.getChildren().addAll(name);
-            stockPane.getChildren().add(v);
+            v.setMinHeight(30);
+
+            BorderPane b = new BorderPane();
+            b.setPadding(new Insets(10));
+
+            Label symbl = new Label(stock.getSymbl().toUpperCase());
+            Label lastTrade = new Label(Double.toString(stock.getLastTrade()));
+
+            b.setLeft(symbl);
+            b.setRight(lastTrade);
+
+            v.getChildren().add(b);
+            stockPane.getChildren().addAll(v, new Line(0,0,190,0));
         });
     }
 

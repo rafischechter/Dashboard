@@ -1,6 +1,6 @@
 package Dashboard;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.atomic.DoubleAccumulator;
 import java.util.stream.Collectors;
 
 /**
@@ -26,6 +25,7 @@ public class Stock {
     private Date date;
     private String name;
     private String symbl;
+    private double lastTrade;
     private double currentPrice;
     private double prevClose;
     private double open;
@@ -39,9 +39,10 @@ public class Stock {
 
     private Stock(){}
 
-    private Stock(String name, String symbol, double ask, double bid, double daysHigh, double daysLow){
+    private Stock(String name, String symbol, double lastTrade, double ask, double bid, double daysHigh, double daysLow){
         this.name = name;
         this.symbl = symbol;
+        this.lastTrade = lastTrade;
         this.ask = ask;
         this.bid = bid;
         this.daysHigh = daysHigh;
@@ -62,11 +63,16 @@ public class Stock {
         return symbl;
     }
 
+    public double getLastTrade(){
+        return lastTrade;
+    }
+
     public static List<Stock> createStockObject(){
         List<Stock> list = new ArrayList<Stock>();
 
         String name;
         String symbl;
+        double lastTrade;
         double ask;
         double bid;
         double daysHigh;
@@ -96,11 +102,12 @@ public class Stock {
                 JSONObject quote = (JSONObject) iterator.next();
                 name = (String)quote.get("Name");
                 symbl = (String)quote.get("symbol");
+                lastTrade = Double.parseDouble((String)quote.get("LastTradePriceOnly"));
                 ask = Double.parseDouble((String)quote.get("Ask"));
                 bid = Double.parseDouble((String)quote.get("Bid"));
                 daysHigh = Double.parseDouble((String)quote.get("DaysHigh"));
                 daysLow = Double.parseDouble((String)quote.get("DaysLow"));
-                list.add(new Stock(name, symbl, ask, bid, daysHigh, daysLow));
+                list.add(new Stock(name, symbl, lastTrade, ask, bid, daysHigh, daysLow));
                 //System.out.printf("Name: %s\nSymbol: %s\nBid: %.2f\nAsk: %.2f\nDays High: %.2f\n" +
                  //       "Days Low: %.2f\n", name, symbl, ask, bid, daysHigh, daysLow);
             }
