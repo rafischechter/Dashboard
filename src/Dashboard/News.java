@@ -5,6 +5,8 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import org.unbescape.html.HtmlEscape;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -87,6 +89,14 @@ public class News {
                 JSONObject item = (JSONObject) iterator.next();
                 title = (String)item.get("title");
                 description = (String)item.get("description");
+
+
+                if (description.contains("title=")) {
+
+                   int end = description.length() - 21;
+                   description = description.substring(description.indexOf("</a>") + 4 , end);
+                    description = HtmlEscape.unescapeHtml(description);
+                }
 
                 list.add(new News(title, description));
             }
