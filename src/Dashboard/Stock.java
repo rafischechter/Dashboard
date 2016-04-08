@@ -8,6 +8,7 @@ import org.json.simple.parser.JSONParser;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.math.BigDecimal;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -25,21 +26,21 @@ public class Stock {
     private Date date;
     private String name;
     private String symbl;
-    private double lastTrade;
-    private double currentPrice;
-    private double prevClose;
-    private double open;
-    private double daysHigh;
-    private double daysLow;
-    private double close;
-    private double bid;
-    private double ask;
+    private BigDecimal lastTrade;
+    private BigDecimal currentPrice;
+    private BigDecimal prevClose;
+    private BigDecimal open;
+    private BigDecimal daysHigh;
+    private BigDecimal daysLow;
+    private BigDecimal close;
+    private BigDecimal bid;
+    private BigDecimal ask;
     private int volume;
-    private double adjClose;
+    private BigDecimal adjClose;
 
     private Stock(){}
 
-    private Stock(String name, String symbol, double lastTrade, double ask, double bid, double daysHigh, double daysLow){
+    private Stock(String name, String symbol, BigDecimal lastTrade, BigDecimal ask, BigDecimal bid, BigDecimal daysHigh, BigDecimal daysLow){
         this.name = name;
         this.symbl = symbol;
         this.lastTrade = lastTrade;
@@ -47,6 +48,12 @@ public class Stock {
         this.bid = bid;
         this.daysHigh = daysHigh;
         this.daysLow = daysLow;
+    }
+
+    private Stock(String name, String symbol, BigDecimal lastTrade){
+        this.name = name;
+        this.symbl = symbol;
+        this.lastTrade = lastTrade;
     }
 
 
@@ -63,7 +70,7 @@ public class Stock {
         return symbl;
     }
 
-    public double getLastTrade(){
+    public BigDecimal getLastTrade(){
         return lastTrade;
     }
 
@@ -72,11 +79,11 @@ public class Stock {
 
         String name;
         String symbl;
-        double lastTrade;
-        double ask;
-        double bid;
-        double daysHigh;
-        double daysLow;
+        BigDecimal lastTrade;
+        BigDecimal ask;
+        BigDecimal bid;
+        BigDecimal daysHigh;
+        BigDecimal daysLow;
 
         String yql = "SELECT * FROM yahoo.finance.quotes WHERE symbol in (\"msft\", \"aapl\", \"yhoo\")";
 
@@ -102,12 +109,14 @@ public class Stock {
                 JSONObject quote = (JSONObject) iterator.next();
                 name = (String)quote.get("Name");
                 symbl = (String)quote.get("symbol");
-                lastTrade = Double.parseDouble((String)quote.get("LastTradePriceOnly"));
-                ask = Double.parseDouble((String)quote.get("Ask"));
-                bid = Double.parseDouble((String)quote.get("Bid"));
-                daysHigh = Double.parseDouble((String)quote.get("DaysHigh"));
-                daysLow = Double.parseDouble((String)quote.get("DaysLow"));
-                list.add(new Stock(name, symbl, lastTrade, ask, bid, daysHigh, daysLow));
+                lastTrade = new BigDecimal((String)quote.get("LastTradePriceOnly"));
+
+                //ask = Double.parseDouble((String)quote.get("Ask"));
+                //bid = Double.parseDouble((String)quote.get("Bid"));
+                //daysHigh = Double.parseDouble((String)quote.get("DaysHigh"));
+                //daysLow = Double.parseDouble((String)quote.get("DaysLow"));
+                list.add(new Stock(name, symbl, lastTrade));
+
                 //System.out.printf("Name: %s\nSymbol: %s\nBid: %.2f\nAsk: %.2f\nDays High: %.2f\n" +
                  //       "Days Low: %.2f\n", name, symbl, ask, bid, daysHigh, daysLow);
             }

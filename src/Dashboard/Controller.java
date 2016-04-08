@@ -72,6 +72,7 @@ public class Controller {
                 TextArea textArea = new TextArea();
                 textArea.setText(news.getDescription());
                 textArea.setWrapText(true);
+                textArea.setEditable(false);
                 Hyperlink hyperlink = new Hyperlink();
                 hyperlink.setText(news.getLink().toString());
                 textArea.setMaxWidth(480);
@@ -111,7 +112,7 @@ public class Controller {
             b.setPadding(new Insets(10));
 
             Label symbl = new Label(stock.getSymbl().toUpperCase());
-            Label lastTrade = new Label(Double.toString(stock.getLastTrade()));
+            Label lastTrade = new Label(stock.getLastTrade().toString());
 
             b.setLeft(symbl);
             b.setRight(lastTrade);
