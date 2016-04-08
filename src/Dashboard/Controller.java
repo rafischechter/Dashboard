@@ -100,7 +100,7 @@ public class Controller {
             b.setRight(lastTrade);
 
             v.getChildren().add(b);
-            stockPane.getChildren().addAll(v, new Line(0,0,190,0));
+            stockPane.getChildren().addAll(v);
         });
     }
 
