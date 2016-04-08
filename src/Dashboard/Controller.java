@@ -7,6 +7,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,10 +72,23 @@ public class Controller {
                 TextArea textArea = new TextArea();
                 textArea.setText(news.getDescription());
                 textArea.setWrapText(true);
+                Hyperlink hyperlink = new Hyperlink();
+                hyperlink.setText(news.getLink().toString());
                 textArea.setMaxWidth(480);
 
-                anchorPane.getChildren().add(textArea);
+                anchorPane.getChildren().addAll(textArea, hyperlink);
+                AnchorPane.setBottomAnchor(hyperlink, -10.0);
                 newsAccordion.getPanes().add(titledPane);
+
+                hyperlink.setOnAction(e -> {
+                    try {
+                        java.awt.Desktop.getDesktop().browse(new URI(hyperlink.getText()));
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    } catch (URISyntaxException e1) {
+                        e1.printStackTrace();
+                    }
+                });
 
             });
 

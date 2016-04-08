@@ -27,6 +27,7 @@ public class News {
     private String section;
     private String title;
     private String description;
+    private String link;
     private String url;
     private String imgUrl;
     private Image img;
@@ -34,9 +35,10 @@ public class News {
     private News() {
     }
 
-    public News(String title, String description) {
+    public News(String title, String description, String link) {
         setTitle(title);
         setDescription(description);
+        setLink(link);
     }
 
     //Setter Methods
@@ -46,6 +48,10 @@ public class News {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setLink(String link){
+        this.link = link;
     }
 
 
@@ -58,6 +64,10 @@ public class News {
         return description;
     }
 
+    public String getLink(){
+        return link;
+    }
+
 
     public static ArrayList<News> createNewsObject(){
 
@@ -65,6 +75,7 @@ public class News {
 
         String title;
         String description;
+        String link;
 
         String yql = "select * from feed where url='http://rss.news.yahoo.com/rss/topstories' limit 25";
 
@@ -98,7 +109,9 @@ public class News {
                     description = HtmlEscape.unescapeHtml(description);
                 }
 
-                list.add(new News(title, description));
+                link = (String)item.get("link");
+
+                list.add(new News(title, description, link));
             }
 
         }catch (Exception e){
