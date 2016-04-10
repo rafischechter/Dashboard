@@ -55,18 +55,24 @@
            <children>
                <BorderPane prefHeight="200.0" prefWidth="250.0">
                <top>
-               <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" BorderPane.alignment="CENTER">
-             <children>
-               <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Weather" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+                        <HBox prefHeight="50.0">
+                           <children>
+               <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Weather" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" HBox.hgrow="ALWAYS">
                  <font>
                    <Font size="18.0" fx:id="x1" />
                  </font>
+                                 <HBox.margin>
+                                    <Insets left="12.0" top="14.0" />
+                                 </HBox.margin>
                </Label>
-                 <Button layoutX="120.0" layoutY="12.0" mnemonicParsing="false" onAction="#updateWeather" text="Update" />
-                     <Pane layoutY="100.0" prefHeight="100.0" prefWidth="200.0" />
-   
-             </children>
-               </Pane>
+                     <Pane HBox.hgrow="ALWAYS" />
+                 <Button mnemonicParsing="false" onAction="#updateWeather" text="Update">
+                                 <HBox.margin>
+                                    <Insets right="14.0" top="12.0" />
+                                 </HBox.margin>
+                              </Button>
+                           </children>
+                        </HBox>
                    </top>
                    <center>
                        <ScrollPane BorderPane.alignment="CENTER">
@@ -102,7 +108,7 @@
                               <Font size="18.0" fx:id="x11" />
                            </font>
                            <HBox.margin>
-                              <Insets left="14.0" top="14.0" />
+                              <Insets left="12.0" top="14.0" />
                            </HBox.margin>
                         </Label>
                         <Pane HBox.hgrow="ALWAYS" />
@@ -118,13 +124,26 @@
                <children>
                   <BorderPane prefWidth="250.0">
                      <top>
-                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" BorderPane.alignment="CENTER">
+                        <HBox prefHeight="50.0" BorderPane.alignment="CENTER">
                            <children>
-                        <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Stocks" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" />
-                              <Button layoutX="173.0" layoutY="12.0" mnemonicParsing="false" onAction="#updateStocks" text="Update" />
-                              <Button fx:id="btnAddQuote" layoutX="136.0" layoutY="12.0" mnemonicParsing="false" onAction="#addQuote" text="+" />
+                        <Label alignment="CENTER" font="$x1" style="&#10;" text="Stocks" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" HBox.hgrow="ALWAYS">
+                                 <HBox.margin>
+                                    <Insets left="12.0" top="14.0" />
+                                 </HBox.margin>
+                              </Label>
+                              <Pane BorderPane.alignment="CENTER" HBox.hgrow="ALWAYS" />
+                              <Button fx:id="btnAddQuote" mnemonicParsing="false" onAction="#addQuote" text="+">
+                                 <HBox.margin>
+                                    <Insets right="5.0" top="12.0" />
+                                 </HBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#updateStocks" text="Update">
+                                 <HBox.margin>
+                                    <Insets right="14.0" top="12.0" />
+                                 </HBox.margin>
+                              </Button>
                            </children>
-                        </Pane>
+                        </HBox>
                      </top>
                      <center>
                         <ScrollPane BorderPane.alignment="CENTER">

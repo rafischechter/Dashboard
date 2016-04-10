@@ -6,15 +6,10 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.shape.Line;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -114,9 +109,6 @@ public class Controller {
         stockList.stream().forEach(stock -> {
             VBox v = new VBox();
 
-            //BorderPane b = new BorderPane();
-            //b.setPadding(new Insets(10));
-
             Label symbl = new Label(stock.getSymbl().toUpperCase());
             Label lastTrade = new Label(stock.getLastTrade().toString());
 
@@ -125,7 +117,6 @@ public class Controller {
             button.setMinWidth(80);
             button.setMaxWidth(80);
             button.setAlignment(Pos.CENTER_RIGHT);
-
 
             if(stock.getPercentChange().startsWith("-")){
                 button.setStyle("-fx-base: #FF0000;");
@@ -144,19 +135,6 @@ public class Controller {
             hBox.setPadding(new Insets(3,3,3,3));
             hBox.setSpacing(5);
             hBox.setAlignment(Pos.CENTER);
-
-            //hBox.setAlignment(Pos.CENTER);
-            //hBox.setMargin(lastTrade, new Insets(5));
-            //hBox.getChildren().addAll(lastTrade, button);
-
-            //HBox hBox1 = new HBox();
-            //hBox1.setAlignment(Pos.CENTER);
-            //hBox1.getChildren().add(symbl);
-
-            //b.setLeft(hBox1);
-            //b.setRight(hBox);
-
-            //v.getChildren().add(b);
 
             v.getChildren().add(hBox);
             stockPane.getChildren().addAll(v);
