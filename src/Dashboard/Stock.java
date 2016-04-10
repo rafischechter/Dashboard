@@ -37,6 +37,8 @@ public class Stock {
     private BigDecimal ask;
     private int volume;
     private BigDecimal adjClose;
+    private String marketCap;
+    private String percentChange;
 
     private Stock(){}
 
@@ -50,10 +52,12 @@ public class Stock {
         this.daysLow = daysLow;
     }
 
-    private Stock(String name, String symbol, BigDecimal lastTrade){
+    private Stock(String name, String symbol, BigDecimal lastTrade, String marketCap, String percentChange){
         this.name = name;
         this.symbl = symbol;
         this.lastTrade = lastTrade;
+        this.marketCap = marketCap;
+        this.percentChange = percentChange;
     }
 
 
@@ -74,6 +78,14 @@ public class Stock {
         return lastTrade;
     }
 
+    public String getMarketCap(){
+        return marketCap;
+    }
+
+    public String getPercentChange(){
+        return percentChange;
+    }
+
     public static List<Stock> createStockObject(){
         List<Stock> list = new ArrayList<Stock>();
 
@@ -84,6 +96,8 @@ public class Stock {
         BigDecimal bid;
         BigDecimal daysHigh;
         BigDecimal daysLow;
+        String marketCap;
+        String percentChange;
 
         String yql = "SELECT * FROM yahoo.finance.quotes WHERE symbol in (\"msft\", \"aapl\", \"yhoo\")";
 
@@ -110,12 +124,14 @@ public class Stock {
                 name = (String)quote.get("Name");
                 symbl = (String)quote.get("symbol");
                 lastTrade = new BigDecimal((String)quote.get("LastTradePriceOnly"));
+                marketCap = (String)quote.get("MarketCapitalization");
+                percentChange = (String)quote.get("PercentChange");
 
                 //ask = Double.parseDouble((String)quote.get("Ask"));
                 //bid = Double.parseDouble((String)quote.get("Bid"));
                 //daysHigh = Double.parseDouble((String)quote.get("DaysHigh"));
                 //daysLow = Double.parseDouble((String)quote.get("DaysLow"));
-                list.add(new Stock(name, symbl, lastTrade));
+                list.add(new Stock(name, symbl, lastTrade, marketCap, percentChange));
 
                 //System.out.printf("Name: %s\nSymbol: %s\nBid: %.2f\nAsk: %.2f\nDays High: %.2f\n" +
                  //       "Days Low: %.2f\n", name, symbl, ask, bid, daysHigh, daysLow);

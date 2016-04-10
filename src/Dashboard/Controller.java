@@ -1,11 +1,15 @@
 package Dashboard;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 import java.net.URI;
@@ -70,12 +74,15 @@ public class Controller {
                 AnchorPane anchorPane = new AnchorPane();
                 TitledPane titledPane = new TitledPane(news.getTitle(), anchorPane);
                 TextArea textArea = new TextArea();
+
                 textArea.setText(news.getDescription());
                 textArea.setWrapText(true);
                 textArea.setEditable(false);
                 Hyperlink hyperlink = new Hyperlink();
                 hyperlink.setText(news.getLink().toString());
-                textArea.setMaxWidth(480);
+
+                textArea.setMaxSize(480, 150);
+                hyperlink.setMaxWidth(textArea.getMaxWidth());
 
                 anchorPane.getChildren().addAll(textArea, hyperlink);
                 AnchorPane.setBottomAnchor(hyperlink, -10.0);
@@ -106,23 +113,60 @@ public class Controller {
 
         stockList.stream().forEach(stock -> {
             VBox v = new VBox();
-            v.setMinHeight(30);
 
-            BorderPane b = new BorderPane();
-            b.setPadding(new Insets(10));
+            //BorderPane b = new BorderPane();
+            //b.setPadding(new Insets(10));
 
             Label symbl = new Label(stock.getSymbl().toUpperCase());
             Label lastTrade = new Label(stock.getLastTrade().toString());
 
-            b.setLeft(symbl);
-            b.setRight(lastTrade);
+            Button button = new Button();
+            button.setText(stock.getPercentChange());
+            button.setMinWidth(80);
+            button.setMaxWidth(80);
+            button.setAlignment(Pos.CENTER_RIGHT);
 
-            v.getChildren().add(b);
+
+            if(stock.getPercentChange().startsWith("-")){
+                button.setStyle("-fx-base: #FF0000;");
+            }
+            else{
+                button.setStyle("-fx-base: #00FF00;");
+            }
+
+
+            HBox hBox = new HBox();
+            Pane pane = new Pane();
+
+            hBox.getChildren().addAll(symbl, pane, lastTrade, button);
+            hBox.setMinWidth(240);
+            hBox.setHgrow(pane, Priority.ALWAYS);
+            hBox.setPadding(new Insets(3,3,3,3));
+            hBox.setSpacing(5);
+            hBox.setAlignment(Pos.CENTER);
+
+            //hBox.setAlignment(Pos.CENTER);
+            //hBox.setMargin(lastTrade, new Insets(5));
+            //hBox.getChildren().addAll(lastTrade, button);
+
+            //HBox hBox1 = new HBox();
+            //hBox1.setAlignment(Pos.CENTER);
+            //hBox1.getChildren().add(symbl);
+
+            //b.setLeft(hBox1);
+            //b.setRight(hBox);
+
+            //v.getChildren().add(b);
+
+            v.getChildren().add(hBox);
             stockPane.getChildren().addAll(v);
         });
     }
 
+    @FXML
+    public void addQuote(ActionEvent actionEvent) {
 
+    }
 
 
 }

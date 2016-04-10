@@ -8,7 +8,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Dashboard.Controller">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Dashboard.Controller">
   <children>
     <MenuBar VBox.vgrow="NEVER">
       <menus>
@@ -49,11 +49,11 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.2505567928730512, 0.5" focusTraversable="true" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="900.0" VBox.vgrow="ALWAYS">
+    <SplitPane dividerPositions="0.2505567928730512, 0.5" focusTraversable="true" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="1000.0" VBox.vgrow="ALWAYS">
       <items>
         <AnchorPane>
            <children>
-               <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <BorderPane prefHeight="200.0" prefWidth="250.0">
                <top>
                <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" BorderPane.alignment="CENTER">
              <children>
@@ -95,39 +95,51 @@
                   </ScrollPane>
                </center>
                <top>
-                  <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="485.0" BorderPane.alignment="CENTER">
+                  <HBox prefHeight="50.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="News" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false">
+                        <Label alignment="CENTER" prefWidth="-1.0" style="&#10;" text="News" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" HBox.hgrow="ALWAYS">
                            <font>
                               <Font size="18.0" fx:id="x11" />
                            </font>
+                           <HBox.margin>
+                              <Insets left="14.0" top="14.0" />
+                           </HBox.margin>
                         </Label>
-                        <Button layoutX="409.0" layoutY="12.0" mnemonicParsing="false" onAction="#updateNews" text="Update" />
+                        <Pane HBox.hgrow="ALWAYS" />
+                        <Button mnemonicParsing="false" onAction="#updateNews" text="Update" HBox.hgrow="NEVER">
+                           <HBox.margin>
+                              <Insets right="14.0" top="12.0" />
+                           </HBox.margin></Button>
                      </children>
-                  </Pane>
+                  </HBox>
                </top>
             </BorderPane>
-            <BorderPane prefHeight="200.0" prefWidth="200.0">
-               <top>
-                  <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" BorderPane.alignment="CENTER">
-                     <children>
-                  <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Stocks" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" />
-                        <Button layoutX="120.0" layoutY="12.0" mnemonicParsing="false" onAction="#updateStocks" text="Update" />
-                     </children>
-                  </Pane>
-               </top>
-               <center>
-                  <ScrollPane BorderPane.alignment="CENTER">
-                     <content>
-                        <AnchorPane>
+            <AnchorPane>
+               <children>
+                  <BorderPane prefWidth="250.0">
+                     <top>
+                        <Pane maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" BorderPane.alignment="CENTER">
                            <children>
-                              <VBox fx:id="stockPane" minWidth="195.0" />
+                        <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Stocks" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" />
+                              <Button layoutX="173.0" layoutY="12.0" mnemonicParsing="false" onAction="#updateStocks" text="Update" />
+                              <Button fx:id="btnAddQuote" layoutX="136.0" layoutY="12.0" mnemonicParsing="false" onAction="#addQuote" text="+" />
                            </children>
-                        </AnchorPane>
-                     </content>
-                  </ScrollPane>
-               </center>
-            </BorderPane>
+                        </Pane>
+                     </top>
+                     <center>
+                        <ScrollPane BorderPane.alignment="CENTER">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <VBox fx:id="stockPane" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </center>
+                  </BorderPane>
+               </children>
+            </AnchorPane>
       </items>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
