@@ -6,6 +6,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.net.URI;
@@ -103,7 +104,7 @@ public class Controller {
 
         stockList = Stock.createStockObject();
         if(stockPane.getChildren().size() > 0){
-            stockPane.getChildren().remove(0, stockList.size());
+            stockPane.getChildren().clear();
         }
 
         stockList.stream().forEach(stock -> {
@@ -141,9 +142,22 @@ public class Controller {
         });
     }
 
+
     @FXML
     public void addQuote(ActionEvent actionEvent) {
+        stockPane.getChildren().clear();
+        Text t = new Text("Enter a quote");
+        TextField t1 = new TextField();
 
+        t1.setMinWidth(240);
+        stockPane.getChildren().addAll(t, t1);
+
+        t1.setOnAction(event -> {
+            t1.getText();
+            // create a new stock object
+            updateStocks();
+
+        });
     }
 
 

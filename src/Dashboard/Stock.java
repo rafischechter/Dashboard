@@ -86,6 +86,8 @@ public class Stock {
         return percentChange;
     }
 
+
+    // Static method to create stock objects
     public static List<Stock> createStockObject(){
         List<Stock> list = new ArrayList<Stock>();
 
