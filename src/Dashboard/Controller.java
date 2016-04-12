@@ -26,7 +26,7 @@ public class Controller {
     @FXML
     private void initialize(){
         updateNews();
-        updateStocks();
+        updateStocks(stockSymbols);
         updateWeather();
     }
 
@@ -118,8 +118,12 @@ public class Controller {
 
     @FXML
     protected void updateStocks(){
+        updateStocks(stockSymbols);
+    }
 
-        stockList = Stock.createStockObject();
+    protected void updateStocks(List<String> stockSymbols){
+
+        stockList = Stock.createStockObject(stockSymbols);
         if(stockPane.getChildren().size() > 0){
             stockPane.getChildren().clear();
         }
@@ -159,6 +163,7 @@ public class Controller {
         });
     }
 
+    List<String> stockSymbols = new ArrayList<String>();
 
     @FXML
     public void addQuote(ActionEvent actionEvent) {
@@ -170,9 +175,8 @@ public class Controller {
         stockPane.getChildren().addAll(t, t1);
 
         t1.setOnAction(event -> {
-            t1.getText();
-            // create a new stock object
-            updateStocks();
+            stockSymbols.add(t1.getText());
+            updateStocks(stockSymbols);
 
         });
     }
