@@ -4,9 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
+import javafx.scene.Group;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URI;
@@ -48,11 +52,24 @@ public class Controller {
         }
 
         WeatherList.stream().forEach(weather -> {
+            Group root = new Group();
             VBox v = new VBox();
             Label temp = new Label(weather.getCity() + " " + weather.getTemp() + "° F");
-            v.getChildren().addAll(temp);
+            Label text = new Label(weather.getText());
+            ImageView img = new ImageView("http://www.animatedimages.org/data/media/606/animated-rain-image-0043.gif");
+            v.getChildren().addAll(temp, text, img);
+
 
             WeatherPane.getChildren().add(v);
+            v.setPrefHeight(200);
+            //String image = "http://www.animatedimages.org/data/media/606/animated-rain-image-0043.gif";
+           /** v.setStyle("-fx-background-image: url(https://www.tumblr.com/search/rainy%20window%20gif#);" +
+                    //"-fx-background-size: 100, 205;\n" +
+                    "-fx-background-repeat: no-repeat;\n" +
+                    "-fx-height: 200px;" +
+
+                    "-fx-padding: 10;\n" +
+                    "-fx-spacing: 8;");**/
         });
     }
 

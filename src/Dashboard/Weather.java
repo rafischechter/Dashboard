@@ -1,9 +1,11 @@
 package Dashboard;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.unbescape.html.HtmlEscape;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -27,18 +29,20 @@ public class Weather {
     private int daysLow;
     private String city;
     private String temp;
+    private String text;
     private int realFeeel;
     private String Description; // Sunny, Cloudy, etc..
     private Image weatherIcon;
     private int humidity;
     private int windSpeed;
     private String windDirection;
+    private Image image;
 
-
-    private Weather(String city, String temp){
+    private Weather(String city, String temp, String text, Image image){
         this.city = city;
         this.temp = temp;
-
+        this.text = text;
+        this.image = image;
     }
 
     public static List<Weather> createWeatherObject() {
@@ -46,6 +50,9 @@ public class Weather {
 
         String city;
         String temp;
+        String text;
+        String description;
+        String image;
         String yql = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"brooklyn, ny\")";
 
         try {
@@ -63,14 +70,27 @@ public class Weather {
             JSONObject query = (JSONObject) jsonObject.get("query");
             JSONObject results = (JSONObject) query.get("results");
             JSONObject channel = (JSONObject) results.get("channel");
+
             JSONObject location = (JSONObject) channel.get("location");
+            city = location.get("city") + "," + location.get("region") + " " + location.get("country");
+
             JSONObject item = (JSONObject) channel.get("item");
             JSONObject condition = (JSONObject) item.get("condition");
-            city = location.get("city") + "," + location.get("region") + " " + location.get("country");
-            temp = (String)condition.get("temp");
-            list.add(new Weather(city, temp));
 
-            System.out.println(city + " " + temp);
+            temp = (String)condition.get("temp");
+            text = (String)condition.get("text");
+
+           // JSONObject imgURL = (JSONObject) channel.get("image");
+           // image = new Image("http://www.animatedimages.org/data/media/606/animated-rain-image-0043.gif");
+            Image image1 = new Image("http://www.animatedimages.org/data/media/606/animated-rain-image-0043.gif");
+
+            // simple displays ImageView the image as is
+            ImageView iv1 = new ImageView();
+            iv1.setImage(image1);
+
+            list.add(new Weather(city, temp, text, image1));
+
+            System.out.println(city + " " + temp + "\n" + text);
 
 
 
@@ -137,7 +157,12 @@ public class Weather {
     public String getCity() {
         return city;
     }
-
+    public String getText() {
+        return text;
+    }
+    public Image getImage() {
+        return image;
+    }
     public int getRealFeeel() {
         return realFeeel;
     }
