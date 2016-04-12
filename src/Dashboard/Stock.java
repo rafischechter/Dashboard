@@ -218,6 +218,8 @@ public class Stock {
                 marketCap = (String)quote.get("MarketCapitalization");
                 percentChange = (String)quote.get("PercentChange");
 
+                lastTrade = lastTrade.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+
                 //ask = Double.parseDouble((String)quote.get("Ask"));
                 //bid = Double.parseDouble((String)quote.get("Bid"));
                 //daysHigh = Double.parseDouble((String)quote.get("DaysHigh"));
