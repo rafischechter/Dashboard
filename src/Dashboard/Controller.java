@@ -52,24 +52,26 @@ public class Controller {
         }
 
         WeatherList.stream().forEach(weather -> {
-            Group root = new Group();
             VBox v = new VBox();
-            Label temp = new Label(weather.getCity() + " " + weather.getTemp() + "° F");
+            Label current = new Label(weather.toString());
             Label text = new Label(weather.getText());
-            ImageView img = new ImageView("http://www.animatedimages.org/data/media/606/animated-rain-image-0043.gif");
-            v.getChildren().addAll(temp, text, img);
+
+            v.getChildren().addAll(current);
 
 
             WeatherPane.getChildren().add(v);
-            v.setPrefHeight(200);
-            //String image = "http://www.animatedimages.org/data/media/606/animated-rain-image-0043.gif";
-           /** v.setStyle("-fx-background-image: url(https://www.tumblr.com/search/rainy%20window%20gif#);" +
-                    //"-fx-background-size: 100, 205;\n" +
+            v.setPrefHeight(100);
+
+
+            v.setStyle("-fx-background-image: url(" + weather.getImage() + ");" +
+                    "-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
                     "-fx-height: 200px;" +
 
-                    "-fx-padding: 10;\n" +
-                    "-fx-spacing: 8;");**/
+                    "-fx-padding: 9;\n" +
+                    "-fx-spacing: 8;");
+            current.setStyle("-fx-text-fill: white;" +
+                    "-fx-font-weight: bold;");
         });
     }
 
