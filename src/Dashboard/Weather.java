@@ -36,9 +36,9 @@ public class Weather {
     private int humidity;
     private int windSpeed;
     private String windDirection;
-    private Image image;
+    private String image;
 
-    private Weather(String city, String temp, String text, Image image){
+    private Weather(String city, String temp, String text, String image){
         this.city = city;
         this.temp = temp;
         this.text = text;
@@ -82,11 +82,7 @@ public class Weather {
 
            // JSONObject imgURL = (JSONObject) channel.get("image");
            // image = new Image("http://www.animatedimages.org/data/media/606/animated-rain-image-0043.gif");
-            Image image1 = new Image("http://www.animatedimages.org/data/media/606/animated-rain-image-0043.gif");
-
-            // simple displays ImageView the image as is
-            ImageView iv1 = new ImageView();
-            iv1.setImage(image1);
+            String image1 = new String("/assets/rain.gif");
 
             list.add(new Weather(city, temp, text, image1));
 
@@ -160,7 +156,7 @@ public class Weather {
     public String getText() {
         return text;
     }
-    public Image getImage() {
+    public String getImage() {
         return image;
     }
     public int getRealFeeel() {
@@ -185,6 +181,12 @@ public class Weather {
 
     public String getWindDirection() {
         return windDirection;
+    }
+
+    @Override
+    public String toString() {
+        String current = String.format("%1$s %2$13s %3$s\n%4$s", getCity(), getTemp(), "° F", getText());
+        return current;
     }
 }
 
