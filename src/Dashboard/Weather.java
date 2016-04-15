@@ -81,13 +81,17 @@ public class Weather {
             temp = (String)condition.get("temp");
             text = (String)condition.get("text");
             String conCode = (String)condition.get("code");
-            String file = "/assets/" + conCode + ".gif";
+            String file = "./src/assets/" + conCode + ".gif";//C:\Users\Wolf\IdeaProjects\Dashboard\out\production\Dashboard\assets
+            //C:\Users\Wolf\IdeaProjects\Dashboard\out\production\Dashboard\Dashboard
+            System.out.println(file);
            // JSONObject imgURL = (JSONObject) channel.get("image");
            // image = new Image("http://www.animatedimages.org/data/media/606/animated-rain-image-0043.gif");
             try {
                 File f = new File(file);
-                if (f.exists())
-                image1 = file;  //imageSwitch(text);
+                File ff = new File(f.getAbsolutePath());
+                System.out.println(f.getAbsolutePath());
+                if (ff.exists())
+                    image1 = "/assets/" + conCode + ".gif";  //imageSwitch(text);
                 else
                     image1 = "/assets/error.gif";
             }
