@@ -6,7 +6,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.unbescape.html.HtmlEscape;
-
+import java.io.File;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -48,6 +48,7 @@ public class Weather {
     public static List<Weather> createWeatherObject() {
         List<Weather> list = new ArrayList<>();
 
+        String image1="";
         String city;
         String temp;
         String text;
@@ -79,11 +80,20 @@ public class Weather {
 
             temp = (String)condition.get("temp");
             text = (String)condition.get("text");
-
+            String conCode = (String)condition.get("code");
+            String file = "/assets/" + conCode + ".gif";
            // JSONObject imgURL = (JSONObject) channel.get("image");
            // image = new Image("http://www.animatedimages.org/data/media/606/animated-rain-image-0043.gif");
-            String image1 = new String("/assets/rain.gif");
-
+            try {
+                File f = new File(file);
+                if (f.exists())
+                image1 = file;  //imageSwitch(text);
+                else
+                    image1 = "/assets/error.gif";
+            }
+            catch(Exception e){
+                e.printStackTrace();  //imageSwitch(text);
+            }
             list.add(new Weather(city, temp, text, image1));
 
             System.out.println(city + " " + temp + "\n" + text);
@@ -97,6 +107,15 @@ public class Weather {
 
 
         return list;
+    }
+
+    private static String imageSwitch(String text) {
+       String image;
+        switch(text) {
+            case "Raining" : image = "/assets/rain.gif";
+                default: image = "/assets/error.gif";
+        }
+        return image;
     }
 
 
@@ -121,8 +140,8 @@ public class Weather {
         Description = description;
     }
 
-    public void setWeatherIcon(Image weatherIcon) {
-        this.weatherIcon = weatherIcon;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setHumidity(int humidity) {
