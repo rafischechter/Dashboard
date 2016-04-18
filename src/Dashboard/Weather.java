@@ -27,7 +27,7 @@ public class Weather {
     private Date date;
     private int daysHigh;
     private int daysLow;
-    private String city;
+    private String title;
     private String temp;
     private String text;
     private int realFeeel;
@@ -38,8 +38,8 @@ public class Weather {
     private String windDirection;
     private String image;
 
-    private Weather(String city, String temp, String text, String image){
-        this.city = city;
+    private Weather(String title, String temp, String text, String image){
+        this.title = title;
         this.temp = temp;
         this.text = text;
         this.image = image;
@@ -49,9 +49,14 @@ public class Weather {
         List<Weather> list = new ArrayList<>();
 
         String image1="";
+        String image2="";
         String city;
         String temp;
         String text;
+        String text2;
+        String title;
+        String code;
+        String forecastWeather;
         String description;
         String image;
         String yql = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"brooklyn, ny\")";
@@ -81,11 +86,9 @@ public class Weather {
             temp = (String)condition.get("temp");
             text = (String)condition.get("text");
             String conCode = (String)condition.get("code");
-            String file = "./src/assets/" + conCode + ".gif";//C:\Users\Wolf\IdeaProjects\Dashboard\out\production\Dashboard\assets
-            //C:\Users\Wolf\IdeaProjects\Dashboard\out\production\Dashboard\Dashboard
+            String file = "./src/assets/" + conCode + ".gif";
             System.out.println(file);
-           // JSONObject imgURL = (JSONObject) channel.get("image");
-           // image = new Image("http://www.animatedimages.org/data/media/606/animated-rain-image-0043.gif");
+
             try {
                 File f = new File(file);
                 File ff = new File(f.getAbsolutePath());
@@ -96,9 +99,39 @@ public class Weather {
                     image1 = "/assets/error.gif";
             }
             catch(Exception e){
-                e.printStackTrace();  //imageSwitch(text);
+                e.printStackTrace();
             }
+
             list.add(new Weather(city, temp, text, image1));
+
+            JSONArray forecast = (JSONArray) item.get("forecast");
+
+            Iterator iterator = forecast.iterator();
+            while (iterator.hasNext()) {
+                JSONObject day = (JSONObject) iterator.next();
+                title = (String) day.get("day");
+                code = (String) day.get("code");
+                forecastWeather = (String) day.get("high") + day.get("low");
+                text2 = (String) day.get("text");
+
+                String file2 = "./src/assets/" + code + ".gif";
+                System.out.println(file2);
+
+                try {
+                    File f = new File(file2);
+                    File ff = new File(f.getAbsolutePath());
+                    System.out.println(f.getAbsolutePath());
+                    if (ff.exists())
+                        image2 = "/assets/" + code + ".gif";  //imageSwitch(text);
+                    else
+                        image2 = "/assets/error.gif";
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                }
+                list.add(new Weather(title, forecastWeather, text2, image2));
+            }
+
 
             System.out.println(city + " " + temp + "\n" + text);
 
@@ -111,15 +144,6 @@ public class Weather {
 
 
         return list;
-    }
-
-    private static String imageSwitch(String text) {
-       String image;
-        switch(text) {
-            case "Raining" : image = "/assets/rain.gif";
-                default: image = "/assets/error.gif";
-        }
-        return image;
     }
 
 
@@ -173,8 +197,8 @@ public class Weather {
     public String getTemp() {
         return temp;
     }
-    public String getCity() {
-        return city;
+    public String getTitle() {
+        return title;
     }
     public String getText() {
         return text;
@@ -208,7 +232,7 @@ public class Weather {
 
     @Override
     public String toString() {
-        String current = String.format("%1$s %2$13s %3$s\n%4$s", getCity(), getTemp(), "° F", getText());
+        String current = String.format("%1$s %2$13s %3$s\n%4$s", getTitle(), getTemp(), "° F", getText());
         return current;
     }
 }

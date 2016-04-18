@@ -44,14 +44,19 @@ public class Controller {
     private VBox WeatherPane;
 
     @FXML
+    private Accordion weatherAccordion;
+
+    @FXML
     protected void updateWeather(){
 
         WeatherList = Weather.createWeatherObject();
         if(WeatherPane.getChildren().size() > 0){
             WeatherPane.getChildren().remove(0, WeatherList.size());
         }
-
-        WeatherList.stream().forEach(weather -> {
+        if(weatherAccordion.getPanes().size() > 0){
+            weatherAccordion.getPanes().remove(0, WeatherList.size());
+        }
+        WeatherList.subList(0, 1).forEach(weather -> {
             VBox v = new VBox();
             Label current = new Label(weather.toString());
             Label text = new Label(weather.getText());
@@ -60,18 +65,43 @@ public class Controller {
 
 
             WeatherPane.getChildren().add(v);
-            v.setPrefHeight(100);
+            v.setPrefHeight(145);
 
 
             v.setStyle("-fx-background-image: url(" + weather.getImage() + ");" +
-                    "-fx-background-size: 100%;\n" +
+                    //"-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
-                    "-fx-height: 200px;" +
+                    "-fx-height: 100%;" +
 
                     "-fx-padding: 9;\n" +
                     "-fx-spacing: 8;");
             current.setStyle("-fx-text-fill: white;" +
                     "-fx-font-weight: bold;");
+        });
+        WeatherList.subList(2, 7).forEach(weather ->
+        {
+            AnchorPane anchorPane = new AnchorPane();
+            TitledPane titledPane = new TitledPane(weather.getTitle(), anchorPane);
+            TextArea textArea = new TextArea();
+
+            textArea.setText(weather.getTemp() + weather.getText());
+            textArea.setWrapText(true);
+            textArea.setEditable(false);
+
+            textArea.setMaxSize(480, 150);
+            anchorPane.getChildren().addAll(textArea);
+
+            weatherAccordion.getPanes().add(titledPane);
+
+            /**hyperlink.setOnAction(e -> {
+                try {
+                    java.awt.Desktop.getDesktop().browse(new URI(hyperlink.getText()));
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                } catch (URISyntaxException e1) {
+                    e1.printStackTrace();
+                }
+            }); **/
         });
     }
 

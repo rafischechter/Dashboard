@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.geometry.*?>
@@ -86,6 +87,22 @@
                        </ScrollPane>
                    </center>
                </BorderPane>
+                  <BorderPane layoutY="200.0" prefHeight="351.0" prefWidth="250.0">
+                     <center>
+                        <ScrollPane BorderPane.alignment="CENTER">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <Accordion fx:id="weatherAccordion" />
+                                 </children>
+                              </AnchorPane>
+                           </content>
+                        </ScrollPane>
+                     </center>
+                     <top>
+                        <HBox prefHeight="0.0" prefWidth="250.0" />
+                     </top>
+                  </BorderPane>
            </children>
         </AnchorPane>
             <BorderPane>
