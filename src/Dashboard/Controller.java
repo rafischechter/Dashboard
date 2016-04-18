@@ -88,9 +88,8 @@ public class Controller {
             textArea.setWrapText(true);
             textArea.setEditable(false);
 
-            textArea.setMaxSize(480, 150);
+            textArea.setMaxSize(246, 100);
             anchorPane.getChildren().addAll(textArea);
-
             weatherAccordion.getPanes().add(titledPane);
 
             /**hyperlink.setOnAction(e -> {

@@ -111,7 +111,7 @@ public class Weather {
                 JSONObject day = (JSONObject) iterator.next();
                 title = (String) day.get("day");
                 code = (String) day.get("code");
-                forecastWeather = (String) day.get("high") + day.get("low");
+                forecastWeather = "High: " + day.get("high") + "° F\nLow: " + day.get("low") + "° F\n\n";
                 text2 = (String) day.get("text");
 
                 String file2 = "./src/assets/" + code + ".gif";
