@@ -37,6 +37,7 @@ public class Weather {
     private int windSpeed;
     private String windDirection;
     private String image;
+    private Image icon;
 
     private Weather(String title, String temp, String high, String low, String text, String image){
         this.title = title;
@@ -45,6 +46,16 @@ public class Weather {
         this.image = image;
         this.high = high;
         this.low = low;
+    }
+
+    private Weather(String title, String temp, String high, String low, String text, String image, Image icon){
+        this.title = title;
+        this.temp = temp;
+        this.text = text;
+        this.image = image;
+        this.high = high;
+        this.low = low;
+        this.icon = icon;
     }
 
     public static List<Weather> createWeatherObject() {
@@ -142,7 +153,8 @@ public class Weather {
                 catch(Exception e){
                     e.printStackTrace();
                 }
-                list.add(new Weather(title, temp2, high, low, text2, image2));
+                Image icon = new Image("http://l.yimg.com/a/i/us/we/52/" + code + ".gif");
+                list.add(new Weather(title, temp2, high, low, text2, image2, icon));
             }
 
 
@@ -236,8 +248,8 @@ public class Weather {
         return Description;
     }
 
-    public Image getWeatherIcon() {
-        return weatherIcon;
+    public Image getIcon() {
+        return icon;
     }
 
     public int getHumidity() {

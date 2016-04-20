@@ -90,6 +90,12 @@ public class Controller {
             /**textArea.setEditable(false);
             textArea.setOpacity(2);
 **/
+            ImageView dd = new ImageView(weather.getIcon());
+            titledPane.setGraphic(dd);
+            titledPane.setContentDisplay(ContentDisplay.RIGHT);
+            titledPane.setGraphicTextGap(135);
+            titledPane.setStyle("-fx-font-weight: bold;\n" +
+            "-fx-color: #e6e6ff;");
             fV.setPrefSize(270, 150);
             //fV.setPrefHeight(130);
             fV.setStyle("-fx-background-image: url(" + weather.getImage() + ");" +
