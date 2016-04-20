@@ -40,6 +40,7 @@ public class Controller {
     @FXML
     private VBox stockPane;
 
+
     @FXML
     private VBox WeatherPane;
 
