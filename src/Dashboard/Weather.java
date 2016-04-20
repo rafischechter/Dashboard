@@ -25,8 +25,8 @@ import java.util.stream.Collectors;
 public class Weather {
 
     private Date date;
-    private int daysHigh;
-    private int daysLow;
+    private String high;
+    private String low;
     private String title;
     private String temp;
     private String text;
@@ -38,11 +38,13 @@ public class Weather {
     private String windDirection;
     private String image;
 
-    private Weather(String title, String temp, String text, String image){
+    private Weather(String title, String temp, String high, String low, String text, String image){
         this.title = title;
         this.temp = temp;
         this.text = text;
         this.image = image;
+        this.high = high;
+        this.low = low;
     }
 
     public static List<Weather> createWeatherObject() {
@@ -56,9 +58,12 @@ public class Weather {
         String text2;
         String title;
         String code;
-        String forecastWeather;
+        String high;
+        String low;
+        String high2;
+        String low2;
         String description;
-        String image;
+
         String yql = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"brooklyn, ny\")";
 
         try {
@@ -85,9 +90,10 @@ public class Weather {
 
             temp = (String)condition.get("temp");
             text = (String)condition.get("text");
+
             String conCode = (String)condition.get("code");
             String file = "./src/assets/" + conCode + ".gif";
-            System.out.println(file);
+            System.out.println(conCode);
 
             try {
                 File f = new File(file);
@@ -102,16 +108,23 @@ public class Weather {
                 e.printStackTrace();
             }
 
-            list.add(new Weather(city, temp, text, image1));
-
             JSONArray forecast = (JSONArray) item.get("forecast");
+            JSONObject today = (JSONObject) forecast.get(0);
+            high = (String)today.get("high");
+            low = (String)today.get("low");
+
+            list.add(new Weather(city, temp, high, low, text, image1));
+
+
 
             Iterator iterator = forecast.iterator();
             while (iterator.hasNext()) {
                 JSONObject day = (JSONObject) iterator.next();
                 title = (String) day.get("day");
                 code = (String) day.get("code");
-                forecastWeather = "High: " + day.get("high") + "° F\nLow: " + day.get("low") + "° F\n\n";
+                high2 = (String) day.get("high");
+                low2 = (String) day.get("low");
+                String temp2 = getAverage(high2, low2);
                 text2 = (String) day.get("text");
 
                 String file2 = "./src/assets/" + code + ".gif";
@@ -129,7 +142,7 @@ public class Weather {
                 catch(Exception e){
                     e.printStackTrace();
                 }
-                list.add(new Weather(title, forecastWeather, text2, image2));
+                list.add(new Weather(title, temp2, high, low, text2, image2));
             }
 
 
@@ -148,12 +161,12 @@ public class Weather {
 
 
     //Setter Methods
-    public void setDaysHigh(int daysHigh) {
-        this.daysHigh = daysHigh;
+    public void setHigh(String high) {
+        this.high = high;
     }
 
-    public void setDaysLow(int daysLow) {
-        this.daysLow = daysLow;
+    public void setLow(String low) {
+        this.low = low;
     }
 
     public void setTemp(int currentTemperture) {
@@ -186,12 +199,21 @@ public class Weather {
 
     //Getter Methods
 
-    public int getDaysHigh() {
-        return daysHigh;
+    public String getHigh() {
+        high = "High: " + high + "° F";
+        return high;
     }
 
-    public int getDaysLow() {
-        return daysLow;
+    public String getLow() {
+        low = "Low:  " + low + "° F";
+        return low;
+    }
+
+    public static String getAverage(String high, String low){
+        int highS = Integer.parseInt(high);
+        int lowS = Integer.parseInt(low);
+        int average = (highS + lowS) / 2;
+        return Integer.toString(average);
     }
 
     public String getTemp() {
@@ -232,7 +254,7 @@ public class Weather {
 
     @Override
     public String toString() {
-        String current = String.format("%1$s %2$13s %3$s\n%4$s", getTitle(), getTemp(), "° F", getText());
+        String current = String.format("%1$s %2$13s %3$s\n%4$61s\n%5$61s\n%6$s", getTitle(), getTemp(), "° F", getHigh(), getLow(), getText());
         return current;
     }
 }

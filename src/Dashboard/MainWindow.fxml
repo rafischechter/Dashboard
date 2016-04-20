@@ -87,20 +87,12 @@
                        </ScrollPane>
                    </center>
                </BorderPane>
-                  <BorderPane layoutY="200.0">
+                  <BorderPane layoutY="200.0" prefHeight="111.0" prefWidth="250.0">
                      <center>
-                        <ScrollPane fx:id="was" BorderPane.alignment="CENTER">
-                           <content>
-                              <AnchorPane fx:id="panelWeather">
-                                 <children>
-                                    <Accordion fx:id="weatherAccordion" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-40.0" AnchorPane.topAnchor="0.0" />
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </ScrollPane>
+                        <ScrollPane fx:id="was" prefHeight="14.0" prefWidth="250.0" BorderPane.alignment="CENTER" />
                      </center>
                      <top>
-                        <HBox prefHeight="0.0" prefWidth="250.0" />
+                        <HBox prefHeight="107.0" prefWidth="250.0" />
                      </top>
                   </BorderPane>
            </children>

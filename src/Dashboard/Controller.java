@@ -67,7 +67,7 @@ public class Controller {
             WeatherPane.getChildren().add(v);
             v.setPrefHeight(145);
 
-
+            current.setWrapText(true);
             v.setStyle("-fx-background-image: url(" + weather.getImage() + ");" +
                     //"-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
@@ -82,14 +82,23 @@ public class Controller {
         {
             AnchorPane anchorPane = new AnchorPane();
             TitledPane titledPane = new TitledPane(weather.getTitle(), anchorPane);
-            TextArea textArea = new TextArea();
+            VBox fV = new VBox();
 
-            textArea.setText(weather.getTemp() + weather.getText());
-            textArea.setWrapText(true);
-            textArea.setEditable(false);
-
-            textArea.setMaxSize(246, 100);
-            anchorPane.getChildren().addAll(textArea);
+            Label forecast = new Label(weather.toString());
+            fV.getChildren().addAll(forecast);
+            forecast.setWrapText(true);
+            /**textArea.setEditable(false);
+            textArea.setOpacity(2);
+**/
+            fV.setPrefSize(270, 150);
+            //fV.setPrefHeight(130);
+            fV.setStyle("-fx-background-image: url(" + weather.getImage() + ");" +
+                    "-fx-background-size: 100%;\n" +
+                    "-fx-background-repeat: no-repeat;\n" +
+                    //"-fx-height: 100%;" +
+                    "-fx-padding: 9;\n" +
+                    "-fx-spacing: 8;");
+            anchorPane.getChildren().addAll(fV);
             weatherAccordion.getPanes().add(titledPane);
 
             /**hyperlink.setOnAction(e -> {
