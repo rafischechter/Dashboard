@@ -58,22 +58,14 @@ public class Weather {
         this.icon = icon;
     }
 
-    public static List<Weather> createWeatherObject() {
-        List<Weather> list = new ArrayList<>();
+    public static Weather WeatherCurrentObject() {
 
-        String image1="";
-        String image2="";
-        String city;
-        String temp;
-        String text;
-        String text2;
-        String title;
-        String code;
-        String high;
-        String low;
-        String high2;
-        String low2;
-        String description;
+        String image = null;
+        String city = null;
+        String temp = null;
+        String text = null;
+        String high = null;
+        String low = null;
 
         String yql = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"brooklyn, ny\")";
 
@@ -111,9 +103,9 @@ public class Weather {
                 File ff = new File(f.getAbsolutePath());
                 System.out.println(f.getAbsolutePath());
                 if (ff.exists())
-                    image1 = "/assets/" + conCode + ".gif";  //imageSwitch(text);
+                    image = "/assets/" + conCode + ".gif";  //imageSwitch(text);
                 else
-                    image1 = "/assets/error.gif";
+                    image = "/assets/error.gif";
             }
             catch(Exception e){
                 e.printStackTrace();
@@ -124,44 +116,82 @@ public class Weather {
             high = (String)today.get("high");
             low = (String)today.get("low");
 
-            list.add(new Weather(city, temp, high, low, text, image1));
 
 
+            System.out.println(city + " " + temp + "\n" + text);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+        Weather current = new Weather(city, temp, high, low, text, image);
+
+        return current;
+    }
+
+    public static List<Weather> WeatherForecastObject() {
+
+        List<Weather> list = new ArrayList<>();
+
+        String file;
+        String image="";
+        String temp;
+        String text;
+        String title;
+        String conditionCode;
+        String high;
+        String low;
+
+        String yql = "select * from weather.forecast where woeid in (select woeid from geo.places(1) where text=\"brooklyn, ny\")";
+
+        try {
+
+            String http = "https://query.yahooapis.com/v1/public/yql?q=" + URLEncoder.encode(yql, "UTF-8") + "&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys";
+
+            URL url = new URL(http);
+            URLConnection con = url.openConnection();
+            InputStream in = con.getInputStream();
+            String result = new BufferedReader(new InputStreamReader(in)).lines().collect(Collectors.joining("\n"));
+
+            JSONParser parser = new JSONParser();
+
+            JSONObject jsonObject = (JSONObject) parser.parse(result);
+            JSONObject query = (JSONObject) jsonObject.get("query");
+            JSONObject results = (JSONObject) query.get("results");
+            JSONObject channel = (JSONObject) results.get("channel");
+
+            JSONObject item = (JSONObject) channel.get("item");
+
+            JSONArray forecast = (JSONArray) item.get("forecast");
 
             Iterator iterator = forecast.iterator();
             while (iterator.hasNext()) {
                 JSONObject day = (JSONObject) iterator.next();
                 title = (String) day.get("day");
-                code = (String) day.get("code");
-                high2 = (String) day.get("high");
-                low2 = (String) day.get("low");
-                String temp2 = getAverage(high2, low2);
-                text2 = (String) day.get("text");
+                conditionCode = (String) day.get("code");
+                high = (String) day.get("high");
+                low = (String) day.get("low");
+                temp = getAverage(high, low);
+                text = (String) day.get("text");
 
-                String file2 = "./src/assets/" + code + ".gif";
-                System.out.println(file2);
+                file = "./src/assets/" + conditionCode + ".gif";
+                System.out.println(file);
 
                 try {
-                    File f = new File(file2);
-                    File ff = new File(f.getAbsolutePath());
-                    System.out.println(f.getAbsolutePath());
-                    if (ff.exists())
-                        image2 = "/assets/" + code + ".gif";  //imageSwitch(text);
+                    File imageFile = new File(file);
+                    File imagePath = new File(imageFile.getAbsolutePath());
+                    System.out.println(imageFile.getAbsolutePath());
+                    if (imagePath.exists())
+                        image = "/assets/" + conditionCode + ".gif";  //imageSwitch(text);
                     else
-                        image2 = "/assets/error.gif";
+                        image = "/assets/error.gif";
                 }
                 catch(Exception e){
                     e.printStackTrace();
                 }
-                Image icon = new Image("http://l.yimg.com/a/i/us/we/52/" + code + ".gif");
-                list.add(new Weather(title, temp2, high, low, text2, image2, icon));
+                Image icon = new Image("http://l.yimg.com/a/i/us/we/52/" + conditionCode + ".gif");
+                list.add(new Weather(title, temp, high, low, text, image, icon));
             }
-
-
-            System.out.println(city + " " + temp + "\n" + text);
-
-
-
 
         }catch (Exception e){
             e.printStackTrace();
@@ -170,7 +200,6 @@ public class Weather {
 
         return list;
     }
-
 
     //Setter Methods
     public void setHigh(String high) {

@@ -32,6 +32,7 @@ public class Controller {
 
     private ArrayList<News> newsList;
     private List<Stock> stockList;
+    private Weather WeatherCurrent;
     private List<Weather> WeatherList;
 
     @FXML
@@ -50,17 +51,18 @@ public class Controller {
     @FXML
     protected void updateWeather(){
 
-        WeatherList = Weather.createWeatherObject();
-        if(WeatherPane.getChildren().size() > 0){
-            WeatherPane.getChildren().remove(0, WeatherList.size());
-        }
+        WeatherCurrent = Weather.WeatherCurrentObject();
+
+        WeatherList = Weather.WeatherForecastObject();
+
         if(weatherAccordion.getPanes().size() > 0){
             weatherAccordion.getPanes().remove(0, WeatherList.size());
         }
-        WeatherList.subList(0, 1).forEach(weather -> {
+
+
             VBox v = new VBox();
-            Label current = new Label(weather.toString());
-            Label text = new Label(weather.getText());
+            Label current = new Label(WeatherCurrent.toString());
+            Label text = new Label(WeatherCurrent.getText());
 
             v.getChildren().addAll(current);
 
@@ -69,7 +71,7 @@ public class Controller {
             v.setPrefHeight(145);
 
             current.setWrapText(true);
-            v.setStyle("-fx-background-image: url(" + weather.getImage() + ");" +
+            v.setStyle("-fx-background-image: url(" + WeatherCurrent.getImage() + ");" +
                     "-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
                     //"-fx-height: 100%;" +
@@ -78,8 +80,9 @@ public class Controller {
                     "-fx-spacing: 8;");
             current.setStyle("-fx-text-fill: white;" +
                     "-fx-font-weight: bold;");
-        });
-        WeatherList.subList(2, 7).forEach(weather ->
+
+
+        WeatherList.subList(1, 6).forEach(weather ->
         {
             AnchorPane anchorPane = new AnchorPane();
             TitledPane titledPane = new TitledPane(weather.getTitle(), anchorPane);
