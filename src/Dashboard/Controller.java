@@ -69,9 +69,9 @@ public class Controller {
 
             current.setWrapText(true);
             v.setStyle("-fx-background-image: url(" + weather.getImage() + ");" +
-                    //"-fx-background-size: 100%;\n" +
+                    "-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
-                    "-fx-height: 100%;" +
+                    //"-fx-height: 100%;" +
 
                     "-fx-padding: 9;\n" +
                     "-fx-spacing: 8;");
@@ -98,6 +98,8 @@ public class Controller {
                     //"-fx-height: 100%;" +
                     "-fx-padding: 9;\n" +
                     "-fx-spacing: 8;");
+            forecast.setStyle("-fx-text-fill: white;" +
+                    "-fx-font-weight: bold;");
             anchorPane.getChildren().addAll(fV);
             weatherAccordion.getPanes().add(titledPane);
 
