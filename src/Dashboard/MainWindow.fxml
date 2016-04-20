@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -8,6 +9,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.text.*?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Dashboard.Controller">
   <children>
@@ -137,45 +140,41 @@
                   </HBox>
                </top>
             </BorderPane>
-            <AnchorPane>
-               <children>
-                  <BorderPane prefWidth="250.0">
-                     <top>
-                        <HBox prefHeight="50.0" BorderPane.alignment="CENTER">
+            <BorderPane prefWidth="250.0">
+               <top>
+                  <HBox prefHeight="50.0" BorderPane.alignment="CENTER">
+                     <children>
+                  <Label alignment="CENTER" font="$x1" style="&#10;" text="Stocks" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" HBox.hgrow="ALWAYS">
+                           <HBox.margin>
+                              <Insets left="12.0" top="14.0" />
+                           </HBox.margin>
+                        </Label>
+                        <Pane BorderPane.alignment="CENTER" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="btnAddQuote" mnemonicParsing="false" onAction="#addQuote" text="+">
+                           <HBox.margin>
+                              <Insets right="5.0" top="12.0" />
+                           </HBox.margin>
+                        </Button>
+                        <Button mnemonicParsing="false" onAction="#updateStocks" text="Update">
+                           <HBox.margin>
+                              <Insets right="14.0" top="12.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
+               </top>
+               <center>
+                  <ScrollPane BorderPane.alignment="CENTER">
+                     <content>
+                        <AnchorPane>
                            <children>
-                        <Label alignment="CENTER" font="$x1" style="&#10;" text="Stocks" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" HBox.hgrow="ALWAYS">
-                                 <HBox.margin>
-                                    <Insets left="12.0" top="14.0" />
-                                 </HBox.margin>
-                              </Label>
-                              <Pane BorderPane.alignment="CENTER" HBox.hgrow="ALWAYS" />
-                              <Button fx:id="btnAddQuote" mnemonicParsing="false" onAction="#addQuote" text="+">
-                                 <HBox.margin>
-                                    <Insets right="5.0" top="12.0" />
-                                 </HBox.margin>
-                              </Button>
-                              <Button mnemonicParsing="false" onAction="#updateStocks" text="Update">
-                                 <HBox.margin>
-                                    <Insets right="14.0" top="12.0" />
-                                 </HBox.margin>
-                              </Button>
+                              <VBox fx:id="stockPane" />
                            </children>
-                        </HBox>
-                     </top>
-                     <center>
-                        <ScrollPane BorderPane.alignment="CENTER">
-                           <content>
-                              <AnchorPane>
-                                 <children>
-                                    <VBox fx:id="stockPane" />
-                                 </children>
-                              </AnchorPane>
-                           </content>
-                        </ScrollPane>
-                     </center>
-                  </BorderPane>
-               </children>
-            </AnchorPane>
+                        </AnchorPane>
+                     </content>
+                  </ScrollPane>
+               </center>
+            </BorderPane>
       </items>
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
@@ -188,6 +187,12 @@
             <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
           </textFill>
         </Label>
+            <Pane layoutX="94.0" layoutY="13.0" prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+             <ImageView fitHeight="18" preserveRatio="true" smooth="true">
+                 <image>
+                     <Image url="/assets/poweredByYahoo.png" />
+                 </image>
+             </ImageView>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
         <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
       </children>
