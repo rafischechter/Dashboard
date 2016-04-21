@@ -52,19 +52,24 @@ public class Stock {
         this.daysLow = daysLow;
     }
 
-    private Stock(String name, String symbol, BigDecimal lastTrade, String marketCap, String percentChange){
+    private Stock(String name, String symbol, BigDecimal lastTrade, String marketCap, String percentChange,
+                  BigDecimal daysHigh, BigDecimal daysLow, BigDecimal bid, BigDecimal ask){
         this.name = name;
         this.symbl = symbol;
         this.lastTrade = lastTrade;
         this.marketCap = marketCap;
         this.percentChange = percentChange;
+        this.daysHigh = daysHigh;
+        this.daysLow = daysLow;
+        this.bid = bid;
+        this.ask = ask;
     }
 
 
     //Setter Methods
 
-    //Getter Methods
 
+    //Getter Methods
 
     public String getName() {
         return name;
@@ -86,83 +91,99 @@ public class Stock {
         return percentChange;
     }
 
+    public BigDecimal getDaysHigh() {
+        return daysHigh;
+    }
 
-    // Static method to create stock objects
-    public static List<Stock> createStockObject(){
-        List<Stock> list = new ArrayList<Stock>();
+    public BigDecimal getDaysLow() {
+        return daysLow;
+    }
 
-        String name;
-        String symbl;
-        BigDecimal lastTrade;
-        BigDecimal ask;
-        BigDecimal bid;
-        BigDecimal daysHigh;
-        BigDecimal daysLow;
-        String marketCap;
-        String percentChange;
+    public BigDecimal getBid() {
+        return bid;
+    }
 
-        StringBuilder listOfStocks = new StringBuilder();
-        listOfStocks.append("\"");
-        listOfStocks.append("msft");
-        listOfStocks.append("\"");
-        listOfStocks.append(", ");
-        listOfStocks.append("\"");
-        listOfStocks.append("aapl");
-        listOfStocks.append("\"");listOfStocks.append(", ");
-        listOfStocks.append("\"");
-        listOfStocks.append("yhoo");
-        listOfStocks.append("\"");
+    public BigDecimal getAsk() {
+        return ask;
+    }
+
+    /*
+        // Static method to create stock objects
+        public static List<Stock> createStockObject(){
+            List<Stock> list = new ArrayList<Stock>();
+
+            String name;
+            String symbl;
+            BigDecimal lastTrade;
+            BigDecimal ask;
+            BigDecimal bid;
+            BigDecimal daysHigh;
+            BigDecimal daysLow;
+            String marketCap;
+            String percentChange;
+
+            StringBuilder listOfStocks = new StringBuilder();
+            listOfStocks.append("\"");
+            listOfStocks.append("msft");
+            listOfStocks.append("\"");
+            listOfStocks.append(", ");
+            listOfStocks.append("\"");
+            listOfStocks.append("aapl");
+            listOfStocks.append("\"");listOfStocks.append(", ");
+            listOfStocks.append("\"");
+            listOfStocks.append("yhoo");
+            listOfStocks.append("\"");
 
 
-        //String yql = "SELECT * FROM yahoo.finance.quotes WHERE symbol in (\"msft\", \"aapl\", \"yhoo\")";
-        String yql = "SELECT * FROM yahoo.finance.quotes WHERE symbol in (" + listOfStocks + ")";
+            //String yql = "SELECT * FROM yahoo.finance.quotes WHERE symbol in (\"msft\", \"aapl\", \"yhoo\")";
+            String yql = "SELECT * FROM yahoo.finance.quotes WHERE symbol in (" + listOfStocks + ")";
 
-        try {
+            try {
 
-            String http = "http://query.yahooapis.com/v1/public/yql?q=" + URLEncoder.encode(yql, "UTF-8") + "&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env";
+                String http = "http://query.yahooapis.com/v1/public/yql?q=" + URLEncoder.encode(yql, "UTF-8") + "&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env";
 
-            URL url = new URL(http);
-            URLConnection con = url.openConnection();
-            InputStream in = con.getInputStream();
-            String result = new BufferedReader(new InputStreamReader(in)).lines().collect(Collectors.joining("\n"));
+                URL url = new URL(http);
+                URLConnection con = url.openConnection();
+                InputStream in = con.getInputStream();
+                String result = new BufferedReader(new InputStreamReader(in)).lines().collect(Collectors.joining("\n"));
 
-            JSONParser parser = new JSONParser();
+                JSONParser parser = new JSONParser();
 
-            JSONObject jsonObject = (JSONObject) parser.parse(result);
-            JSONObject query = (JSONObject) jsonObject.get("query");
-            JSONObject results = (JSONObject) query.get("results");
+                JSONObject jsonObject = (JSONObject) parser.parse(result);
+                JSONObject query = (JSONObject) jsonObject.get("query");
+                JSONObject results = (JSONObject) query.get("results");
 
-            JSONArray items = (JSONArray) results.get("quote");
+                JSONArray items = (JSONArray) results.get("quote");
 
-            Iterator iterator = items.iterator();
-            while (iterator.hasNext()){
-                JSONObject quote = (JSONObject) iterator.next();
-                name = (String)quote.get("Name");
-                symbl = (String)quote.get("symbol");
-                lastTrade = new BigDecimal((String)quote.get("LastTradePriceOnly"));
-                marketCap = (String)quote.get("MarketCapitalization");
-                percentChange = (String)quote.get("PercentChange");
+                Iterator iterator = items.iterator();
+                while (iterator.hasNext()){
+                    JSONObject quote = (JSONObject) iterator.next();
+                    name = (String)quote.get("Name");
+                    symbl = (String)quote.get("symbol");
+                    lastTrade = new BigDecimal((String)quote.get("LastTradePriceOnly"));
+                    marketCap = (String)quote.get("MarketCapitalization");
+                    percentChange = (String)quote.get("PercentChange");
 
-                //ask = Double.parseDouble((String)quote.get("Ask"));
-                //bid = Double.parseDouble((String)quote.get("Bid"));
-                //daysHigh = Double.parseDouble((String)quote.get("DaysHigh"));
-                //daysLow = Double.parseDouble((String)quote.get("DaysLow"));
-                list.add(new Stock(name, symbl, lastTrade, marketCap, percentChange));
+                    //ask = Double.parseDouble((String)quote.get("Ask"));
+                    //bid = Double.parseDouble((String)quote.get("Bid"));
+                    daysHigh = new BigDecimal((String)quote.get("DaysHigh"));
+                    daysLow = new BigDecimal((String)quote.get("DaysLow"));
+                    list.add(new Stock(name, symbl, lastTrade, marketCap, percentChange, daysHigh, daysLow));
 
-                //System.out.printf("Name: %s\nSymbol: %s\nBid: %.2f\nAsk: %.2f\nDays High: %.2f\n" +
-                 //       "Days Low: %.2f\n", name, symbl, ask, bid, daysHigh, daysLow);
+                    //System.out.printf("Name: %s\nSymbol: %s\nBid: %.2f\nAsk: %.2f\nDays High: %.2f\n" +
+                     //       "Days Low: %.2f\n", name, symbl, ask, bid, daysHigh, daysLow);
+                }
+
+
+
+            }catch (Exception e){
+                e.printStackTrace();
             }
 
 
-
-        }catch (Exception e){
-            e.printStackTrace();
+            return list;
         }
-
-
-        return list;
-    }
-
+    */
     // Static method to create stock objects
     public static List<Stock> createStockObject(List<String> stockSymbols){
         List<Stock> list = new ArrayList<Stock>();
@@ -211,20 +232,20 @@ public class Stock {
 
             Iterator iterator = items.iterator();
             while (iterator.hasNext()){
+
                 JSONObject quote = (JSONObject) iterator.next();
                 name = (String)quote.get("Name");
                 symbl = (String)quote.get("symbol");
                 lastTrade = new BigDecimal((String)quote.get("LastTradePriceOnly"));
                 marketCap = (String)quote.get("MarketCapitalization");
                 percentChange = (String)quote.get("PercentChange");
-
                 lastTrade = lastTrade.setScale(2, BigDecimal.ROUND_HALF_EVEN);
+                ask = new BigDecimal((String)quote.get("Ask"));
+                bid = new BigDecimal((String)quote.get("Bid"));
+                daysHigh = new BigDecimal((String)quote.get("DaysHigh"));
+                daysLow = new BigDecimal((String)quote.get("DaysLow"));
 
-                //ask = Double.parseDouble((String)quote.get("Ask"));
-                //bid = Double.parseDouble((String)quote.get("Bid"));
-                //daysHigh = Double.parseDouble((String)quote.get("DaysHigh"));
-                //daysLow = Double.parseDouble((String)quote.get("DaysLow"));
-                list.add(new Stock(name, symbl, lastTrade, marketCap, percentChange));
+                list.add(new Stock(name, symbl, lastTrade, marketCap, percentChange, daysHigh, daysLow, bid, ask));
 
                 //System.out.printf("Name: %s\nSymbol: %s\nBid: %.2f\nAsk: %.2f\nDays High: %.2f\n" +
                 //       "Days Low: %.2f\n", name, symbl, ask, bid, daysHigh, daysLow);

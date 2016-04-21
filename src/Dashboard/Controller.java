@@ -25,9 +25,9 @@ public class Controller {
 
     @FXML
     private void initialize(){
-        updateNews();
+        //updateNews();
         updateStocks(stockSymbols);
-        updateWeather();
+        //updateWeather();
     }
 
     private ArrayList<News> newsList;
@@ -214,11 +214,19 @@ public class Controller {
             hBox.getChildren().addAll(symbl, pane, lastTrade, button);
             hBox.setMinWidth(205);
             hBox.setHgrow(pane, Priority.ALWAYS);
-            //hBox.setPadding(new Insets(3,3,3,3));
             hBox.setSpacing(5);
             hBox.setAlignment(Pos.CENTER);
 
+            VBox vBox = new VBox();
+            Text marketCap = new Text("Market cap:\t" + stock.getMarketCap());
+            Text daysHigh = new Text("Days High:\t" + stock.getDaysHigh());
+            Text daysLow = new Text("Days Low:\t" + stock.getDaysLow());
+            Text bid = new Text("Bid:\t\t\t" + stock.getBid());
+            Text ask = new Text("Ask:\t\t\t" + stock.getAsk());
+            vBox.getChildren().addAll(marketCap, daysHigh, daysLow, bid, ask);
 
+
+            anchorPane.getChildren().addAll(vBox);
 
             titledPane.setGraphic(hBox);
 
