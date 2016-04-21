@@ -38,9 +38,12 @@ public class Controller {
     @FXML
     private Accordion newsAccordion;
 
-    @FXML
-    private VBox stockPane;
 
+    @FXML
+    private Accordion stocksAccordion;
+
+    @FXML
+    private AnchorPane stocksPane;
 
     @FXML
     private VBox WeatherPane;
@@ -176,12 +179,11 @@ public class Controller {
     protected void updateStocks(List<String> stockSymbols){
 
         stockList = Stock.createStockObject(stockSymbols);
-        if(stockPane.getChildren().size() > 0){
-            stockPane.getChildren().clear();
+        if(stocksAccordion.getPanes().size() > 0){
+            stocksAccordion.getPanes().clear();
         }
 
         stockList.stream().forEach(stock -> {
-            VBox v = new VBox();
 
             Label symbl = new Label(stock.getSymbl().toUpperCase());
             Label lastTrade = new Label(stock.getLastTrade().toString());
@@ -200,18 +202,27 @@ public class Controller {
             }
 
 
+
             HBox hBox = new HBox();
             Pane pane = new Pane();
+            AnchorPane anchorPane = new AnchorPane();
+            TitledPane titledPane = new TitledPane("", anchorPane);
+            anchorPane.setMinWidth(240);
+            anchorPane.setMinHeight(100);
+
 
             hBox.getChildren().addAll(symbl, pane, lastTrade, button);
-            hBox.setMinWidth(240);
+            hBox.setMinWidth(205);
             hBox.setHgrow(pane, Priority.ALWAYS);
-            hBox.setPadding(new Insets(3,3,3,3));
+            //hBox.setPadding(new Insets(3,3,3,3));
             hBox.setSpacing(5);
             hBox.setAlignment(Pos.CENTER);
 
-            v.getChildren().add(hBox);
-            stockPane.getChildren().addAll(v);
+
+
+            titledPane.setGraphic(hBox);
+
+            stocksAccordion.getPanes().add(titledPane);
         });
     }
 
@@ -219,15 +230,19 @@ public class Controller {
 
     @FXML
     public void addQuote(ActionEvent actionEvent) {
-        stockPane.getChildren().clear();
-        Text t = new Text("Enter a quote");
-        TextField t1 = new TextField();
+        stocksAccordion.getPanes().clear();
+        Text text = new Text("Enter a quote");
+        TextField textField = new TextField();
 
-        t1.setMinWidth(240);
-        stockPane.getChildren().addAll(t, t1);
+        textField.setMinWidth(240);
+        VBox vBox = new VBox();
+        vBox.getChildren().addAll(text, textField);
+        stocksPane.getChildren().addAll(vBox);
+        textField.requestFocus();
 
-        t1.setOnAction(event -> {
-            stockSymbols.add(t1.getText());
+        textField.setOnAction(event -> {
+            stockSymbols.add(textField.getText());
+            stocksPane.getChildren().remove(vBox);
             updateStocks(stockSymbols);
 
         });
