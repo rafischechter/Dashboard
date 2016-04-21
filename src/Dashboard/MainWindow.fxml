@@ -79,7 +79,7 @@
                         </HBox>
                    </top>
                    <center>
-                       <ScrollPane prefHeight="150.0" prefWidth="278.0" BorderPane.alignment="CENTER">
+                       <ScrollPane hbarPolicy="NEVER" prefHeight="150.0" prefWidth="278.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
                            <content>
                                <AnchorPane>
                                    <children>
@@ -140,7 +140,7 @@
                   </HBox>
                </top>
             </BorderPane>
-            <BorderPane prefWidth="250.0">
+            <BorderPane>
                <top>
                   <HBox prefHeight="50.0" BorderPane.alignment="CENTER">
                      <children>
@@ -164,11 +164,11 @@
                   </HBox>
                </top>
                <center>
-                  <ScrollPane BorderPane.alignment="CENTER">
+                  <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
                      <content>
-                        <AnchorPane>
+                        <AnchorPane fx:id="stocksPane">
                            <children>
-                              <VBox fx:id="stockPane" />
+                              <Accordion fx:id="stocksAccordion" />
                            </children>
                         </AnchorPane>
                      </content>
