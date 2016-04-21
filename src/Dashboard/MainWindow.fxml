@@ -55,11 +55,11 @@
     </MenuBar>
     <SplitPane dividerPositions="0.2505567928730512, 0.5" focusTraversable="true" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="1000.0" VBox.vgrow="ALWAYS">
       <items>
-        <AnchorPane>
-           <children>
-               <BorderPane prefHeight="200.0" prefWidth="250.0">
-               <top>
-                        <HBox prefHeight="50.0">
+         <BorderPane prefHeight="200.0" prefWidth="250.0">
+               <center>
+                  <SplitPane dividerPositions="0.5, 0.5" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" BorderPane.alignment="CENTER">
+                    <items>
+                        <HBox maxHeight="50.0" prefHeight="50.0">
                            <children>
                <Label alignment="CENTER" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Weather" textAlignment="CENTER" textFill="#9f9f9f" wrapText="false" HBox.hgrow="ALWAYS">
                  <font>
@@ -69,7 +69,7 @@
                                     <Insets left="12.0" top="14.0" />
                                  </HBox.margin>
                </Label>
-                     <Pane HBox.hgrow="ALWAYS" />
+                     <Pane prefHeight="135.0" prefWidth="101.0" HBox.hgrow="ALWAYS" />
                  <Button mnemonicParsing="false" onAction="#updateWeather" text="Update">
                                  <HBox.margin>
                                     <Insets right="14.0" top="12.0" />
@@ -77,37 +77,32 @@
                               </Button>
                            </children>
                         </HBox>
-                   </top>
-                   <center>
-                       <ScrollPane prefHeight="150.0" prefWidth="278.0" BorderPane.alignment="CENTER">
-                           <content>
-                               <AnchorPane>
-                                   <children>
-                                       <VBox fx:id="WeatherPane" />
-                                   </children>
-                               </AnchorPane>
-                           </content>
-                       </ScrollPane>
-                   </center>
-               </BorderPane>
-                  <BorderPane layoutY="200.0">
-                     <center>
-                        <ScrollPane fx:id="was" BorderPane.alignment="CENTER">
-                           <content>
-                              <AnchorPane fx:id="panelWeather">
+                         <AnchorPane prefHeight="105.0" prefWidth="250.0">
+                             <children>
+                                 <VBox fx:id="WeatherPane" />
+                             </children>
+                         </AnchorPane>
+                    <AnchorPane>
+                       <children>
+                              <HBox prefWidth="250.0">
                                  <children>
-                                    <Accordion fx:id="weatherAccordion" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-40.0" AnchorPane.topAnchor="0.0" />
+                                    <ScrollPane fx:id="was" HBox.hgrow="ALWAYS">
+                                       <content>
+                                          <AnchorPane fx:id="panelWeather">
+                                             <children>
+                                                <Accordion fx:id="weatherAccordion" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-40.0" AnchorPane.topAnchor="0.0" />
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                    </ScrollPane>
                                  </children>
-                              </AnchorPane>
-                           </content>
-                        </ScrollPane>
-                     </center>
-                     <top>
-                        <HBox prefHeight="0.0" prefWidth="250.0" />
-                     </top>
-                  </BorderPane>
-           </children>
-        </AnchorPane>
+                              </HBox>
+                       </children>
+                    </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </center>
+         </BorderPane>
             <BorderPane>
                <center>
                   <ScrollPane hbarPolicy="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="485.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">

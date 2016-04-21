@@ -189,7 +189,7 @@ public class Weather {
                 catch(Exception e){
                     e.printStackTrace();
                 }
-                Image icon = new Image("http://l.yimg.com/a/i/us/we/52/" + conditionCode + ".gif");
+                Image icon = new Image("/assets/stills/" + conditionCode + ".gif");
                 list.add(new Weather(title, temp, high, low, text, image, icon));
             }
 
