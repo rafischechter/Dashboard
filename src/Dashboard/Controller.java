@@ -61,15 +61,14 @@ public class Controller {
 
         WeatherList = Weather.WeatherForecastObject();
 
-        if(weatherAccordion.getPanes().size() > 0){
-            weatherAccordion.getPanes().remove(0, WeatherList.size());
-        }
         if(WeatherPane.getChildren().size() > 0){
-            WeatherPane.getChildren().remove(0);
+            WeatherPane.getChildren().remove(0, 1);
+        }
+        if(weatherAccordion.getPanes().size() > 0){
+            weatherAccordion.getPanes().clear();
         }
 
             VBox v = new VBox();
-
             Text current = new Text(WeatherCurrent.toString());
             Label text = new Label(WeatherCurrent.toString());
 
@@ -107,6 +106,7 @@ public class Controller {
 
             Text forecast = new Text(weather.toString());
             fV.getChildren().addAll(forecast);
+            WeatherPane.getChildren().addAll(fV);
             //forecast.setWrapText(true);
             /**textArea.setEditable(false);
             textArea.setOpacity(2);
@@ -117,7 +117,7 @@ public class Controller {
             titledPane.setGraphicTextGap(135);
             titledPane.setStyle("-fx-font-weight: bold;\n" +
             "-fx-color: #e6e6ff;");
-            fV.setPrefSize(270, 150);
+            v.setPrefSize(270, 150);
             //fV.setPrefHeight(130);
             fV.setStyle("-fx-background-image: url(" + weather.getImage() + ");" +
                     "-fx-background-size: 100%;\n" +
@@ -235,15 +235,12 @@ public class Controller {
             hBox.setAlignment(Pos.CENTER);
 
             VBox vBox = new VBox();
-            Text name = new Text("Name:\t\t" + stock.getName());
             Text marketCap = new Text("Market cap:\t" + stock.getMarketCap());
             Text daysHigh = new Text("Days High:\t" + stock.getDaysHigh());
             Text daysLow = new Text("Days Low:\t" + stock.getDaysLow());
             Text bid = new Text("Bid:\t\t\t" + stock.getBid());
             Text ask = new Text("Ask:\t\t\t" + stock.getAsk());
-            Text prevClose = new Text("Prev Close:\t" + stock.getPrevClose());
-            Text open = new Text("Open:\t\t" + stock.getOpen());
-            vBox.getChildren().addAll(name, marketCap, daysHigh, daysLow, bid, ask, prevClose, open);
+            vBox.getChildren().addAll(marketCap, daysHigh, daysLow, bid, ask);
 
 
             anchorPane.getChildren().addAll(vBox);
