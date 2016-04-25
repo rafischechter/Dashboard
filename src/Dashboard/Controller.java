@@ -14,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.TextAlignment;
 
 import java.io.IOException;
 import java.net.URI;
@@ -38,9 +39,10 @@ public class Controller {
     private Weather WeatherCurrent;
     private List<Weather> WeatherList;
 
+    private List<String> stockSymbols = new ArrayList<String>();
+
     @FXML
     private Accordion newsAccordion;
-
 
     @FXML
     private Accordion stocksAccordion;
@@ -196,6 +198,7 @@ public class Controller {
     protected void updateStocks(List<String> stockSymbols){
 
         stockList = Stock.createStockObject(stockSymbols);
+
         if(stocksAccordion.getPanes().size() > 0){
             stocksAccordion.getPanes().clear();
         }
@@ -203,13 +206,23 @@ public class Controller {
         stockList.stream().forEach(stock -> {
 
             Label symbl = new Label(stock.getSymbl().toUpperCase());
-            Label lastTrade = new Label(stock.getLastTrade().toString());
+            Label lastTrade = new Label(stock.getLastTrade());
 
             Button button = new Button();
-            button.setText(stock.getPercentChange());
+            HBox buttonFormat = new HBox();
+            Text sign = new Text(stock.getPercentChange().charAt(0) + "");
+            Pane spacer = new Pane();
+            Text percentChange = new Text(stock.getPercentChange().substring(1));
+
+            buttonFormat.getChildren().addAll(sign, spacer, percentChange);
+            buttonFormat.setHgrow(spacer, Priority.ALWAYS);
+            buttonFormat.setAlignment(Pos.CENTER_RIGHT);
+            
+            button.setGraphic(buttonFormat);
             button.setMinWidth(80);
             button.setMaxWidth(80);
             button.setAlignment(Pos.CENTER_RIGHT);
+
 
             if(stock.getPercentChange().startsWith("-")){
                 button.setStyle("-fx-base: #FF0000;");
@@ -218,18 +231,15 @@ public class Controller {
                 button.setStyle("-fx-base: #00FF00;");
             }
 
-
-
             HBox hBox = new HBox();
             Pane pane = new Pane();
             AnchorPane anchorPane = new AnchorPane();
             TitledPane titledPane = new TitledPane("", anchorPane);
-            anchorPane.setMinWidth(240);
+            anchorPane.setMinWidth(250);
             anchorPane.setMinHeight(100);
 
-
             hBox.getChildren().addAll(symbl, pane, lastTrade, button);
-            hBox.setMinWidth(205);
+            hBox.setMinWidth(210);
             hBox.setHgrow(pane, Priority.ALWAYS);
             hBox.setSpacing(5);
             hBox.setAlignment(Pos.CENTER);
@@ -240,7 +250,9 @@ public class Controller {
             Text daysLow = new Text("Days Low:\t" + stock.getDaysLow());
             Text bid = new Text("Bid:\t\t\t" + stock.getBid());
             Text ask = new Text("Ask:\t\t\t" + stock.getAsk());
-            vBox.getChildren().addAll(marketCap, daysHigh, daysLow, bid, ask);
+            Text prevClose = new Text("Prev Close:\t" + stock.getPrevClose());
+            Text open = new Text("Open:\t\t" + stock.getOpen());
+            vBox.getChildren().addAll(marketCap, daysHigh, daysLow, bid, ask, prevClose, open);
 
 
             anchorPane.getChildren().addAll(vBox);
@@ -251,7 +263,7 @@ public class Controller {
         });
     }
 
-    List<String> stockSymbols = new ArrayList<String>();
+
 
     @FXML
     public void addQuote(ActionEvent actionEvent) {
@@ -269,7 +281,6 @@ public class Controller {
             stockSymbols.add(textField.getText());
             stocksPane.getChildren().remove(vBox);
             updateStocks(stockSymbols);
-
         });
     }
 
