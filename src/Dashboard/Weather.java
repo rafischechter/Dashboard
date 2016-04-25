@@ -96,7 +96,7 @@ public class Weather {
 
             String conCode = (String)condition.get("code");
             String file = "./src/assets/" + conCode + ".gif";
-            System.out.println(conCode);
+            //System.out.println(conCode);
 
             try {
                 File f = new File(file);
@@ -118,7 +118,7 @@ public class Weather {
 
 
 
-            System.out.println(city + " " + temp + "\n" + text);
+            //System.out.println(city + " " + temp + "\n" + text);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -175,12 +175,12 @@ public class Weather {
                 text = (String) day.get("text");
 
                 file = "./src/assets/" + conditionCode + ".gif";
-                System.out.println(file);
+                //System.out.println(file);
 
                 try {
                     File imageFile = new File(file);
                     File imagePath = new File(imageFile.getAbsolutePath());
-                    System.out.println(imageFile.getAbsolutePath());
+                   // System.out.println(imageFile.getAbsolutePath());
                     if (imagePath.exists())
                         image = "/assets/" + conditionCode + ".gif";  //imageSwitch(text);
                     else

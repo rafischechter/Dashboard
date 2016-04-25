@@ -7,6 +7,9 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.StrokeType;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
@@ -25,9 +28,9 @@ public class Controller {
 
     @FXML
     private void initialize(){
-        //updateNews();
+        updateNews();
         updateStocks(stockSymbols);
-        //updateWeather();
+        updateWeather();
     }
 
     private ArrayList<News> newsList;
@@ -61,11 +64,14 @@ public class Controller {
         if(weatherAccordion.getPanes().size() > 0){
             weatherAccordion.getPanes().remove(0, WeatherList.size());
         }
-
+        if(WeatherPane.getChildren().size() > 0){
+            WeatherPane.getChildren().remove(0);
+        }
 
             VBox v = new VBox();
-            Label current = new Label(WeatherCurrent.toString());
-            Label text = new Label(WeatherCurrent.getText());
+
+            Text current = new Text(WeatherCurrent.toString());
+            Label text = new Label(WeatherCurrent.toString());
 
             v.getChildren().addAll(current);
 
@@ -73,16 +79,24 @@ public class Controller {
             WeatherPane.getChildren().add(v);
             v.setPrefHeight(145);
 
-            current.setWrapText(true);
+            //current.setWrapText(true);
             v.setStyle("-fx-background-image: url(" + WeatherCurrent.getImage() + ");" +
                     "-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
                     //"-fx-height: 100%;" +
 
-                    "-fx-padding: 9;\n" +
+                    "-fx-padding: 11;\n" +
                     "-fx-spacing: 8;");
             current.setStyle("-fx-text-fill: white;" +
-                    "-fx-font-weight: bold;");
+                    "-fx-font-size: 14;" +
+                    "-fx-font-weight: 900;" +
+                    "-fx-stroke: black;" +
+                    "-fx-stroke-width: 1;");
+
+        current.setFill(Color.WHITE);
+        //current.set;
+        //current.setStrokeType(StrokeType.OUTSIDE);
+
 
 
         WeatherList.subList(1, 6).forEach(weather ->
@@ -91,9 +105,9 @@ public class Controller {
             TitledPane titledPane = new TitledPane(weather.getTitle(), anchorPane);
             VBox fV = new VBox();
 
-            Label forecast = new Label(weather.toString());
+            Text forecast = new Text(weather.toString());
             fV.getChildren().addAll(forecast);
-            forecast.setWrapText(true);
+            //forecast.setWrapText(true);
             /**textArea.setEditable(false);
             textArea.setOpacity(2);
 **/
@@ -112,7 +126,10 @@ public class Controller {
                     "-fx-padding: 9;\n" +
                     "-fx-spacing: 8;");
             forecast.setStyle("-fx-text-fill: white;" +
-                    "-fx-font-weight: bold;");
+                    "-fx-font-weight: bold;" +
+                    "-fx-stroke: black;" +
+                    "-fx-stroke-width: .4;");
+            forecast.setFill(Color.WHITE);
             anchorPane.getChildren().addAll(fV);
             weatherAccordion.getPanes().add(titledPane);
 
