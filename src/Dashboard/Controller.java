@@ -235,12 +235,15 @@ public class Controller {
             hBox.setAlignment(Pos.CENTER);
 
             VBox vBox = new VBox();
+            Text name = new Text("Name:\t\t" + stock.getName());
             Text marketCap = new Text("Market cap:\t" + stock.getMarketCap());
             Text daysHigh = new Text("Days High:\t" + stock.getDaysHigh());
             Text daysLow = new Text("Days Low:\t" + stock.getDaysLow());
             Text bid = new Text("Bid:\t\t\t" + stock.getBid());
             Text ask = new Text("Ask:\t\t\t" + stock.getAsk());
-            vBox.getChildren().addAll(marketCap, daysHigh, daysLow, bid, ask);
+            Text prevClose = new Text("Prev Close:\t" + stock.getPrevClose());
+            Text open = new Text("Open:\t\t" + stock.getOpen());
+            vBox.getChildren().addAll(name, marketCap, daysHigh, daysLow, bid, ask, prevClose, open);
 
 
             anchorPane.getChildren().addAll(vBox);
