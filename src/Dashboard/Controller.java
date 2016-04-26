@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeType;
+import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.Group;
@@ -211,16 +212,19 @@ public class Controller {
             Button button = new Button();
             HBox buttonFormat = new HBox();
             Text sign = new Text(stock.getPercentChange().charAt(0) + "");
+            sign.setFill(Color.WHITE);
             Pane spacer = new Pane();
-            Text percentChange = new Text(stock.getPercentChange().substring(1));
+            Text percentChange = new Text(stock.getPercentChange().substring(1,5) + "%");
+            //percentChange.setFont(Font.font("Verdana",));
+            percentChange.setFill(Color.WHITE);
 
             buttonFormat.getChildren().addAll(sign, spacer, percentChange);
             buttonFormat.setHgrow(spacer, Priority.ALWAYS);
             buttonFormat.setAlignment(Pos.CENTER_RIGHT);
             
             button.setGraphic(buttonFormat);
-            button.setMinWidth(80);
-            button.setMaxWidth(80);
+            button.setMinWidth(70);
+            button.setMaxWidth(70);
             button.setAlignment(Pos.CENTER_RIGHT);
 
 
@@ -228,18 +232,18 @@ public class Controller {
                 button.setStyle("-fx-base: #FF0000;");
             }
             else{
-                button.setStyle("-fx-base: #00FF00;");
+                button.setStyle("-fx-base: #00E500;");
             }
 
             HBox hBox = new HBox();
             Pane pane = new Pane();
             AnchorPane anchorPane = new AnchorPane();
             TitledPane titledPane = new TitledPane("", anchorPane);
-            anchorPane.setMinWidth(250);
+            anchorPane.setMinWidth(243);
             anchorPane.setMinHeight(100);
 
             hBox.getChildren().addAll(symbl, pane, lastTrade, button);
-            hBox.setMinWidth(210);
+            hBox.setMinWidth(205);
             hBox.setHgrow(pane, Priority.ALWAYS);
             hBox.setSpacing(5);
             hBox.setAlignment(Pos.CENTER);
