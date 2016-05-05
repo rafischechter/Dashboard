@@ -139,7 +139,8 @@ public class News {
                     list.add(new News(title, description, link, image));
                 }
                 else{
-                    list.add(new News(title, description, link));
+                    image = new Image("/assets/blankImage.png");
+                    list.add(new News(title, description, link, image));
                 }
 
             }
