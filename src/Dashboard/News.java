@@ -1,12 +1,15 @@
 package Dashboard;
 
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.ImageViewBuilder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import org.unbescape.html.HtmlEscape;
 
+import javax.imageio.ImageIO;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -30,7 +33,7 @@ public class News {
     private String link;
     private String url;
     private String imgUrl;
-    private Image img;
+    private Image image;
 
     private News() {
     }
@@ -40,6 +43,14 @@ public class News {
         setDescription(description);
         setLink(link);
     }
+
+    public News(String title, String description, String link, Image image) {
+        setTitle(title);
+        setDescription(description);
+        setLink(link);
+        setImage(image);
+    }
+
 
     //Setter Methods
     public void setTitle(String title) {
@@ -52,6 +63,10 @@ public class News {
 
     public void setLink(String link){
         this.link = link;
+    }
+
+    public void setImage(Image image){
+        this.image = image;
     }
 
 
@@ -68,6 +83,10 @@ public class News {
         return link;
     }
 
+    public Image getImage(){
+        return image;
+    }
+
 
     public static ArrayList<News> createNewsObject(){
 
@@ -76,8 +95,10 @@ public class News {
         String title;
         String description;
         String link;
+        String imageUrl;
+        Image image;
 
-        String yql = "select * from feed where url='http://rss.news.yahoo.com/rss/topstories' ";
+        String yql = "select * from feed where url='http://rss.news.yahoo.com/rss/topstories' limit 25";
 
         try{
             String http = "http://query.yahooapis.com/v1/public/yql?q=" + URLEncoder.encode(yql, "UTF-8") + "&format=json&diagnostics=true&env=http%3A%2F%2Fdatatables.org%2Falltables.env";
@@ -101,7 +122,6 @@ public class News {
                 title = (String)item.get("title");
                 description = (String)item.get("description");
 
-
                 if (description.contains("title=")) {
 
                    int end = description.length() - 21;
@@ -111,7 +131,17 @@ public class News {
 
                 link = (String)item.get("link");
 
-                list.add(new News(title, description, link));
+                if(item.containsKey("content")){
+                    JSONObject content = (JSONObject) item.get("content");
+                    imageUrl = (String) content.get("url");
+                    image = new Image(imageUrl);
+
+                    list.add(new News(title, description, link, image));
+                }
+                else{
+                    list.add(new News(title, description, link));
+                }
+
             }
 
         }catch (Exception e){

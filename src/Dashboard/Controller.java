@@ -9,13 +9,10 @@ import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.StrokeType;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
+import javafx.scene.text.*;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.text.TextAlignment;
 
 import java.io.IOException;
 import java.net.URI;
@@ -161,7 +158,15 @@ public class Controller {
             {
                 AnchorPane anchorPane = new AnchorPane();
                 TitledPane titledPane = new TitledPane(news.getTitle(), anchorPane);
+
+
                 TextArea textArea = new TextArea();
+
+                ImageView imageView = new ImageView(news.getImage());
+                imageView.setFitHeight(30);
+                imageView.setPreserveRatio(true);
+
+                titledPane.setGraphic(imageView);
 
                 textArea.setText(news.getDescription());
                 textArea.setWrapText(true);
@@ -211,6 +216,7 @@ public class Controller {
 
             Button button = new Button();
             HBox buttonFormat = new HBox();
+            buttonFormat.setMinHeight(20);
             Text sign = new Text(stock.getPercentChange().charAt(0) + "");
             sign.setFill(Color.WHITE);
             Pane spacer = new Pane();
