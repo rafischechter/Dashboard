@@ -75,17 +75,17 @@
                         </Button>
                      </children>
                   </HBox>
-                   <AnchorPane maxHeight="100.0">
+                   <AnchorPane maxHeight="100.0" minWidth="250">
                        <children>
                            <VBox id="wv" fx:id="WeatherPane" disable="true" />
                        </children>
                      <padding>
-                        <Insets bottom="-10.0" right="-10.0" />
+                        <Insets bottom="-10.0" right="-5.0" />
                      </padding>
                    </AnchorPane>
-                  <ScrollPane fx:id="was">
+                  <ScrollPane fx:id="was" >
                      <content>
-                        <AnchorPane fx:id="panelWeather" prefHeight="200.0">
+                        <AnchorPane fx:id="panelWeather" prefHeight="200.0" >
                            <children>
                               <Accordion fx:id="weatherAccordion" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-40.0" AnchorPane.topAnchor="0.0" />
                            </children>

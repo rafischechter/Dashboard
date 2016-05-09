@@ -101,6 +101,7 @@ public class Controller {
         WeatherList.subList(1, 6).forEach(weather ->
         {
             AnchorPane anchorPane = new AnchorPane();
+            anchorPane.setMinHeight(130);
             TitledPane titledPane = new TitledPane(weather.getTitle(), anchorPane);
             VBox fV = new VBox();
 
@@ -111,24 +112,25 @@ public class Controller {
             /**textArea.setEditable(false);
             textArea.setOpacity(2);
 **/
-            ImageView dd = new ImageView(weather.getIcon());
-            titledPane.setGraphic(dd);
+            ImageView icon = new ImageView(weather.getIcon());
+            titledPane.setGraphic(icon);
             titledPane.setContentDisplay(ContentDisplay.RIGHT);
             titledPane.setGraphicTextGap(135);
             titledPane.setStyle("-fx-font-weight: bold;\n" +
             "-fx-color: #e6e6ff;");
-            v.setPrefSize(270, 150);
-            //fV.setPrefHeight(130);
+            fV.setPrefWidth(255);
+            fV.setMinHeight(130);
             fV.setStyle("-fx-background-image: url(" + weather.getImage() + ");" +
                     "-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
-                    //"-fx-height: 100%;" +
-                    "-fx-padding: 9;\n" +
+                   // "-fx-height: 100%;" +
+                    "-fx-padding: 11;\n" +
                     "-fx-spacing: 8;");
             forecast.setStyle("-fx-text-fill: white;" +
-                    "-fx-font-weight: bold;" +
+                    "-fx-font-size: 14;" +
+                    "-fx-font-weight: 900;" +
                     "-fx-stroke: black;" +
-                    "-fx-stroke-width: .4;");
+                    "-fx-stroke-width: 1;");
             forecast.setFill(Color.WHITE);
             anchorPane.getChildren().addAll(fV);
             weatherAccordion.getPanes().add(titledPane);

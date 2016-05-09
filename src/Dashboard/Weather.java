@@ -295,7 +295,7 @@ public class Weather {
 
     @Override
     public String toString() {
-        String current = String.format("%1$s %2$13s %3$s\n%4$61s\n%5$61s\n%6$s", getTitle(), getTemp(), "° F", getHigh(), getLow(), getText());
+        String current = String.format("%1$s %2$4s%3$s\n%4$51s\n%5$51s\n%6$s", getTitle(), getTemp(), "° F", getHigh(), getLow(), getText());
         return current;
     }
 }
