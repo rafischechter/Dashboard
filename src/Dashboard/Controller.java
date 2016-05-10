@@ -253,7 +253,7 @@ public class Controller {
             Pane pane = new Pane();
             AnchorPane anchorPane = new AnchorPane();
             TitledPane titledPane = new TitledPane("", anchorPane);
-            anchorPane.setMinWidth(243);
+            anchorPane.setMinWidth(255);
             anchorPane.setMinHeight(100);
 
             hBox.getChildren().addAll(symbl, pane, lastTrade, button);

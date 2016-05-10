@@ -18,7 +18,7 @@ public class Main extends Application {
         //News.createNewsObject();
 
         //Stock.createStockObject();
-
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
