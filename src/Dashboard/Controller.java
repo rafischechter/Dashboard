@@ -76,13 +76,13 @@ public class Controller {
 
 
             WeatherPane.getChildren().add(v);
-            v.setPrefHeight(145);
+            v.setPrefHeight(151);
 
             //current.setWrapText(true);
             v.setStyle("-fx-background-image: url(" + WeatherCurrent.getImage() + ");" +
-                    "-fx-background-size: 100%;\n" +
+                    //"-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
-                    //"-fx-height: 100%;" +
+                    "-fx-height: 151;" +
 
                     "-fx-padding: 11;\n" +
                     "-fx-spacing: 8;");
@@ -90,7 +90,7 @@ public class Controller {
                     "-fx-font-size: 14;" +
                     "-fx-font-weight: 900;" +
                     "-fx-stroke: black;" +
-                    "-fx-stroke-width: 1;");
+                    "-fx-stroke-width: .4;");
 
         current.setFill(Color.WHITE);
         //current.set;
@@ -100,6 +100,7 @@ public class Controller {
 
         WeatherList.subList(1, 6).forEach(weather ->
         {
+            //ScrollPane test = new ScrollPane();
             AnchorPane anchorPane = new AnchorPane();
             anchorPane.setMinHeight(130);
             TitledPane titledPane = new TitledPane(weather.getTitle(), anchorPane);
@@ -113,27 +114,32 @@ public class Controller {
             textArea.setOpacity(2);
 **/
             ImageView icon = new ImageView(weather.getIcon());
+            icon.fitHeightProperty().setValue(30);
+            icon.fitWidthProperty().setValue(30);
             titledPane.setGraphic(icon);
             titledPane.setContentDisplay(ContentDisplay.RIGHT);
-            titledPane.setGraphicTextGap(135);
-            titledPane.setStyle("-fx-font-weight: bold;\n" +
-            "-fx-color: #e6e6ff;");
+            titledPane.setGraphicTextGap(165);
+            titledPane.setStyle(
+                    "-fx-font-weight: bold;\n");
             fV.setPrefWidth(255);
-            fV.setMinHeight(130);
+            fV.setPrefHeight(130);
             fV.setStyle("-fx-background-image: url(" + weather.getImage() + ");" +
-                    "-fx-background-size: 100%;\n" +
+                    //"-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
-                   // "-fx-height: 100%;" +
+                    "-fx-height: 130;" +
                     "-fx-padding: 11;\n" +
                     "-fx-spacing: 8;");
             forecast.setStyle("-fx-text-fill: white;" +
                     "-fx-font-size: 14;" +
                     "-fx-font-weight: 900;" +
                     "-fx-stroke: black;" +
-                    "-fx-stroke-width: 1;");
+                    "-fx-stroke-width: .4;");
             forecast.setFill(Color.WHITE);
             anchorPane.getChildren().addAll(fV);
             weatherAccordion.getPanes().add(titledPane);
+
+            //test.setContent(weatherAccordion);
+            //test.getContent(ScrollBar);
 
             /**hyperlink.setOnAction(e -> {
                 try {
@@ -218,7 +224,7 @@ public class Controller {
 
             Button button = new Button();
             HBox buttonFormat = new HBox();
-            buttonFormat.setMinHeight(20);
+            buttonFormat.setMinHeight(22);
             Text sign = new Text(stock.getPercentChange().charAt(0) + "");
             sign.setFill(Color.WHITE);
             Pane spacer = new Pane();

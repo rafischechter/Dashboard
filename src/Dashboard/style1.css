@@ -1,0 +1,28 @@
+#was .titled-pane .title {
+-fx-font-family: "Consolas";
+}
+.increment-button, .decrement-button{
+    -fx-background-color:transparent;
+	-fx-background-radius: 0em;
+	-fx-padding:0 7 0 0;
+}
+
+.increment-arrow, .decrement-arrow {
+    -fx-shape: " ";
+    -fx-padding:0;
+}
+
+.track {
+     -fx-opacity:0.2;
+
+
+    -fx-background-radius: 2em;
+    -fx-border-radius:2em;
+}
+
+.thumb {
+    -fx-background-color:derive(black,100%);
+	-fx-background-insets: 2, 0, 0;
+	-fx-background-radius: 2em;
+
+}
