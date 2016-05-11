@@ -114,8 +114,8 @@ public class Controller {
             textArea.setOpacity(2);
 **/
             ImageView icon = new ImageView(weather.getIcon());
-            icon.fitHeightProperty().setValue(30);
-            icon.fitWidthProperty().setValue(30);
+            icon.setFitHeight(30);
+            icon.setFitWidth(30);
             titledPane.setGraphic(icon);
             titledPane.setContentDisplay(ContentDisplay.RIGHT);
             titledPane.setGraphicTextGap(165);
