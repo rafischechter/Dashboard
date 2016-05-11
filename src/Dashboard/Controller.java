@@ -80,6 +80,8 @@ public class Controller {
 
             //current.setWrapText(true);
             v.setStyle("-fx-background-image: url(" + WeatherCurrent.getImage() + ");" +
+                    "-fx-background-position: center center;" +
+                    "-fx-background-size: 100%;" +
                     //"-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
                     "-fx-height: 151;" +
@@ -124,6 +126,8 @@ public class Controller {
             fV.setPrefWidth(255);
             fV.setPrefHeight(130);
             fV.setStyle("-fx-background-image: url(" + weather.getImage() + ");" +
+                    "-fx-background-position: center center;" +
+                    "-fx-background-size: 100%;" +
                     //"-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
                     "-fx-height: 130;" +
