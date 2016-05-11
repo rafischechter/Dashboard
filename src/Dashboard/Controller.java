@@ -70,7 +70,7 @@ public class Controller {
 
             VBox v = new VBox();
             Text current = new Text(WeatherCurrent.toString());
-            Label text = new Label(WeatherCurrent.toString());
+
 
             v.getChildren().addAll(current);
 
@@ -102,10 +102,11 @@ public class Controller {
 
         WeatherList.subList(1, 6).forEach(weather ->
         {
-            //ScrollPane test = new ScrollPane();
+            HBox test = new HBox();
+            Pane spacer = new Pane();
             AnchorPane anchorPane = new AnchorPane();
             anchorPane.setMinHeight(130);
-            TitledPane titledPane = new TitledPane(weather.getTitle(), anchorPane);
+
             VBox fV = new VBox();
 
             Text forecast = new Text(weather.toString());
@@ -118,7 +119,16 @@ public class Controller {
             ImageView icon = new ImageView(weather.getIcon());
             icon.setFitHeight(30);
             icon.setFitWidth(30);
-            titledPane.setGraphic(icon);
+
+            Label text = new Label(weather.getTitle());
+            test.getChildren().addAll(text, spacer, icon);
+            test.setMinWidth(205);
+            test.setHgrow(spacer, Priority.ALWAYS);
+            test.setSpacing(5);
+            test.setAlignment(Pos.CENTER);
+
+            TitledPane titledPane = new TitledPane("", anchorPane);
+            titledPane.setGraphic(test);
             titledPane.setContentDisplay(ContentDisplay.RIGHT);
             titledPane.setGraphicTextGap(165);
             titledPane.setStyle(
@@ -187,6 +197,7 @@ public class Controller {
                 hyperlink.setText(news.getLink().toString());
 
                 textArea.setMaxSize(480, 150);
+                textArea.setMinSize(480, 150);
                 hyperlink.setMaxWidth(textArea.getMaxWidth());
 
                 anchorPane.getChildren().addAll(textArea, hyperlink);

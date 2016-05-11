@@ -3,9 +3,9 @@
 -fx-background-color: "grey";
 }**/
 
-#was .titled-pane .title {
+/**#was .titled-pane .title {
 -fx-font-family: "Consolas";
-}
+}**/
 .increment-button, .decrement-button{
     -fx-background-color:transparent;
 	-fx-background-radius: 0em;
