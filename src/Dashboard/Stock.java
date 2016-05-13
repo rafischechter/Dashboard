@@ -35,7 +35,8 @@ public class Stock implements StockInterface{
     private String close;
     private String bid;
     private String ask;
-    private int volume;
+    private String volume;
+    private String avgVolume;
     private String adjClose;
     private String marketCap;
     private String percentChange;
@@ -53,7 +54,8 @@ public class Stock implements StockInterface{
     }
 
     private Stock(String name, String symbol, String lastTrade, String marketCap, String percentChange,
-                  String daysHigh, String daysLow, String bid, String ask, String prevClose, String open){
+                  String daysHigh, String daysLow, String bid, String ask, String prevClose, String open,
+                  String volume, String avgVolume){
         this.name = name;
         this.symbl = symbol;
         this.lastTrade = lastTrade;
@@ -65,6 +67,8 @@ public class Stock implements StockInterface{
         this.ask = ask;
         this.prevClose = prevClose;
         this.open = open;
+        this.volume = volume;
+        this.avgVolume = avgVolume;
     }
 
 
@@ -117,6 +121,14 @@ public class Stock implements StockInterface{
         return open;
     }
 
+    public String getVolume() {
+        return volume;
+    }
+
+    public String getAvgVolume() {
+        return avgVolume;
+    }
+
     // Static method to create stock objects
     public static List<Stock> createStockObject(List<String> stockSymbols){
         List<Stock> list = new ArrayList<Stock>();
@@ -132,6 +144,8 @@ public class Stock implements StockInterface{
         String percentChange;
         String prevClose;
         String open;
+        String volume;
+        String avgVolume;
 
 
         StringBuilder listOfStocks = new StringBuilder();
@@ -180,8 +194,10 @@ public class Stock implements StockInterface{
                 daysLow = (String)quote.get("DaysLow");
                 prevClose = (String)quote.get("PreviousClose");
                 open = (String)quote.get("Open");
+                volume = (String)quote.get("Volume");
+                avgVolume = (String)quote.get("AverageDailyVolume");
 
-                list.add(new Stock(name, symbl, lastTrade, marketCap, percentChange, daysHigh, daysLow, bid, ask, prevClose, open));
+                list.add(new Stock(name, symbl, lastTrade, marketCap, percentChange, daysHigh, daysLow, bid, ask, prevClose, open, volume, avgVolume));
 
                 //System.out.printf("Name: %s\nSymbol: %s\nBid: %.2f\nAsk: %.2f\nDays High: %.2f\n" +
                 //       "Days Low: %.2f\n", name, symbl, ask, bid, daysHigh, daysLow);
@@ -195,5 +211,7 @@ public class Stock implements StockInterface{
 
 
         return list;
+
+        //TODO delete stock quote
     }
 }

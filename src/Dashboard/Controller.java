@@ -269,7 +269,6 @@ public class Controller {
             AnchorPane anchorPane = new AnchorPane();
             TitledPane titledPane = new TitledPane("", anchorPane);
             anchorPane.setMinWidth(255);
-            anchorPane.setMinHeight(100);
 
             hBox.getChildren().addAll(symbl, pane, lastTrade, button);
             hBox.setMinWidth(205);
@@ -277,18 +276,65 @@ public class Controller {
             hBox.setSpacing(5);
             hBox.setAlignment(Pos.CENTER);
 
-            VBox vBox = new VBox();
-            Text marketCap = new Text("Market cap:\t" + stock.getMarketCap());
-            Text daysHigh = new Text("Days High:\t" + stock.getDaysHigh());
-            Text daysLow = new Text("Days Low:\t" + stock.getDaysLow());
-            Text bid = new Text("Bid:\t\t\t" + stock.getBid());
-            Text ask = new Text("Ask:\t\t\t" + stock.getAsk());
-            Text prevClose = new Text("Prev Close:\t" + stock.getPrevClose());
-            Text open = new Text("Open:\t\t" + stock.getOpen());
-            vBox.getChildren().addAll(marketCap, daysHigh, daysLow, bid, ask, prevClose, open);
+
+            HBox hBox1 = new HBox();
+            hBox1.setPadding(new Insets(5));
+
+            VBox left = new VBox();
+            VBox right = new VBox();
+
+            right.setPadding(new Insets(0,0,0,20));
 
 
-            anchorPane.getChildren().addAll(vBox);
+            VBox vBox1 = new VBox();
+            vBox1.setPadding(new Insets(5));
+            Text openD = new Text("$" + stock.getOpen());
+            Text open = new Text("Open");
+            open.setFill(Color.GREY);
+            vBox1.getChildren().addAll(openD, open);
+
+            VBox vBox2 = new VBox();
+            vBox2.setPadding(new Insets(5));
+            Text todaysHighD = new Text("$" + stock.getDaysHigh());
+            Text todaysHigh = new Text("Todays High");
+            todaysHigh.setFill(Color.GREY);
+            vBox2.getChildren().addAll(todaysHighD, todaysHigh);
+
+            VBox vBox3 = new VBox();
+            vBox3.setPadding(new Insets(5));
+            Text todaysLowD = new Text("$" + stock.getDaysLow());
+            Text todaysLow = new Text("Todays Low");
+            todaysLow.setFill(Color.GREY);
+            vBox3.getChildren().addAll(todaysLowD, todaysLow);
+
+            VBox vBox4 = new VBox();
+            vBox4.setPadding(new Insets(5));
+            Text volumeD = new Text(stock.getVolume());
+            Text volume = new Text("Volume");
+            volume.setFill(Color.GREY);
+            vBox4.getChildren().addAll(volumeD, volume);
+
+            VBox vBox5 = new VBox();
+            vBox5.setPadding(new Insets(5));
+            Text avgVolumeD = new Text(stock.getAvgVolume());
+            Text avgVolume = new Text("Average Volume");
+            avgVolume.setFill(Color.GREY);
+            vBox5.getChildren().addAll(avgVolumeD, avgVolume);
+
+            VBox vBox6 = new VBox();
+            vBox6.setPadding(new Insets(5));
+            Text marketCapD = new Text("$" + stock.getMarketCap());
+            Text marketCap = new Text("Market Cap");
+            marketCap.setFill(Color.GREY);
+            vBox6.getChildren().addAll(marketCapD, marketCap);
+
+
+            left.getChildren().addAll(vBox1, vBox2, vBox3);
+            right.getChildren().addAll(vBox4, vBox5, vBox6);
+
+            hBox1.getChildren().addAll(left, right);
+
+            anchorPane.getChildren().addAll(hBox1);
 
             titledPane.setGraphic(hBox);
 
