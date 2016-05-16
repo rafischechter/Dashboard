@@ -58,9 +58,9 @@
                   </ScrollPane>
               </items>
             </SplitPane>
-            <BorderPane>
+            <BorderPane maxWidth="485.0" minWidth="485.0">
                <center>
-                  <ScrollPane hbarPolicy="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="485.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
+                  <ScrollPane hbarPolicy="NEVER" maxWidth="485.0" minWidth="485.0" prefWidth="485.0" vbarPolicy="NEVER" BorderPane.alignment="CENTER">
                      <content>
                         <AnchorPane fx:id="panelNews" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="485.0">
                            <children>

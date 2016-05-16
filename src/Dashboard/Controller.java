@@ -77,11 +77,12 @@ public class Controller {
 
             WeatherPane.getChildren().add(v);
             v.setPrefHeight(151);
-
+        WeatherPane.setStyle("-fx-color: 'grey';" +
+                "-fx-background-color: 'grey';");
             //current.setWrapText(true);
             v.setStyle("-fx-background-image: url(" + WeatherCurrent.getImage() + ");" +
                     "-fx-background-position: center center;" +
-                    "-fx-background-size: 100%;" +
+                    "-fx-background-height: 151;" +
                     //"-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
                     "-fx-height: 151;" +
@@ -106,6 +107,7 @@ public class Controller {
             Pane spacer = new Pane();
             AnchorPane anchorPane = new AnchorPane();
             anchorPane.setMinHeight(130);
+            anchorPane.setMaxHeight(130);
 
             VBox fV = new VBox();
 
@@ -137,7 +139,7 @@ public class Controller {
             fV.setPrefHeight(130);
             fV.setStyle("-fx-background-image: url(" + weather.getImage() + ");" +
                     "-fx-background-position: center center;" +
-                    "-fx-background-size: 100%;" +
+                    "-fx-background-height: 130;" +
                     //"-fx-background-size: 100%;\n" +
                     "-fx-background-repeat: no-repeat;\n" +
                     "-fx-height: 130;" +
