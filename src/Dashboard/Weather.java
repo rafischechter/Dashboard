@@ -241,12 +241,12 @@ public class Weather {
     //Getter Methods
 
     public String getHigh() {
-        high = "High: " + high + "° F";
+        high = high + "°";
         return high;
     }
 
     public String getLow() {
-        low = "Low:  " + low + "° F";
+        low = low + "°";
         return low;
     }
 
@@ -295,7 +295,7 @@ public class Weather {
 
     @Override
     public String toString() {
-        String current = String.format("%1$s\n%2$45s%3$s\n%4$51s\n%5$51s\n%6$s", getTitle(), "Currently: " + getTemp(), "° F", getHigh(), getLow(), getText());
+        String current = String.format("%1$s\n%2$52s%3$s\n%4$51s/%5$s\n%6$s", getTitle(), getTemp(), "° F", getHigh(), getLow(), getText());
         return current;
     }
 }

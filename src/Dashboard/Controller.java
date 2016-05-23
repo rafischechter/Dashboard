@@ -77,8 +77,7 @@ public class Controller {
 
             WeatherPane.getChildren().add(v);
             v.setPrefHeight(151);
-        WeatherPane.setStyle("-fx-color: 'grey';" +
-                "-fx-background-color: 'grey';");
+
             //current.setWrapText(true);
             v.setStyle("-fx-background-image: url(" + WeatherCurrent.getImage() + ");" +
                     "-fx-background-position: center center;" +
@@ -92,8 +91,9 @@ public class Controller {
             current.setStyle("-fx-text-fill: white;" +
                     "-fx-font-size: 14;" +
                     "-fx-font-weight: 900;" +
-                    "-fx-stroke: black;" +
-                    "-fx-stroke-width: .4;");
+                    "-fx-effect: dropShadow(three-pass-box, #000000, 10, 0.4, 0, 0);");
+                    //"-fx-stroke: black;" +
+                    //"-fx-stroke-width: .4;");
 
         current.setFill(Color.WHITE);
         //current.set;
@@ -148,8 +148,9 @@ public class Controller {
             forecast.setStyle("-fx-text-fill: white;" +
                     "-fx-font-size: 14;" +
                     "-fx-font-weight: 900;" +
-                    "-fx-stroke: black;" +
-                    "-fx-stroke-width: .4;");
+                    "-fx-effect: dropShadow(three-pass-box, #000000, 10, 0.4, 0, 0);");
+                    //"-fx-stroke: black;" +
+                    //"-fx-stroke-width: .4;");
             forecast.setFill(Color.WHITE);
             anchorPane.getChildren().addAll(fV);
             weatherAccordion.getPanes().add(titledPane);

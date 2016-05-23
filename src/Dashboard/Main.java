@@ -17,7 +17,9 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image("file:./src/assets/Dashboard.png"));
         primaryStage.setScene(new Scene(root));
 
+        //News.createNewsObject();
 
+        //Stock.createStockObject();
         primaryStage.setResizable(false);
         primaryStage.show();
     }
